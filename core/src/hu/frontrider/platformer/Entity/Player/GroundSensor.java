@@ -22,13 +22,13 @@ public class GroundSensor  implements Trigger
     public void Trigger(Fixture f,WorldManifold manifold)
     {
         player.addOnGround(1);
-    //    Gdx.app.log(LOG_TAG, "triggered");
+    //Gdx.app.log(LOG_TAG, "triggered");
     }
 
     @Override
     public void UnTrigger(Fixture f,WorldManifold manifold)
     {
         player.addOnGround(-1);
-    //    Gdx.app.log(LOG_TAG, "un triggered");
+    //Gdx.app.log(LOG_TAG, "un triggered");
     }
 }

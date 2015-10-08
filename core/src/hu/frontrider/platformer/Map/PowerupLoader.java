@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * Created by Frontrider on 2015.10.07..
  */
-public class PowerupLoader
+public abstract class PowerupLoader
 {
     private static final String LOG_TAG = "EnergyCell loader";
 

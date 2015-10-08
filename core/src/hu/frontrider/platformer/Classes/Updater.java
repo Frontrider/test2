@@ -1,4 +1,4 @@
-package hu.frontrider.platformer.Helper.Generic;
+package hu.frontrider.platformer.Classes;
 
 import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Entity.Updatable;

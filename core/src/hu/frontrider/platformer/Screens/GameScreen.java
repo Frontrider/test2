@@ -17,17 +17,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Controller.MyContactFilter;
-import hu.frontrider.platformer.Helper.Generic.Disposer;
+import hu.frontrider.platformer.Classes.Disposer;
 import hu.frontrider.platformer.Entity.Enemy.EnemyHandler;
 import hu.frontrider.platformer.Entity.PickupObjects;
 import hu.frontrider.platformer.Entity.Player.Player;
-import hu.frontrider.platformer.Helper.BodyRemover;
-import hu.frontrider.platformer.Helper.Generic.Drawer;
+import hu.frontrider.platformer.Classes.BodyRemover;
+import hu.frontrider.platformer.Classes.Drawer;
 import hu.frontrider.platformer.Helper.StaticVariables;
 import hu.frontrider.platformer.Controller.InputController;
 import hu.frontrider.platformer.Controller.MyContactListener;
 import hu.frontrider.platformer.Map.*;
-import hu.frontrider.platformer.Helper.Generic.Updater;
+import hu.frontrider.platformer.Classes.Updater;
 
 /**
  * Created by Frontrider on 2015.09.10..

@@ -42,6 +42,7 @@ public class Player implements Living
     private float Dashtime;
     private Vector2 DefGravity,Gravity,Accel,Vel,anglePointLeft,anglepointRight;
     private Array Powerups;
+    private Powerup tmpp;
     boolean jumping;
 
     public Player(World world, Vector2 pos) {
@@ -213,6 +214,19 @@ public class Player implements Living
         }
 
         rotate();
+
+        Iterator<Powerup> itr = Powerups.iterator();
+        while (itr.hasNext())
+        {
+            tmpp = itr.next();
+
+            if(!tmpp.remove())
+            tmpp.act(delta);
+            else
+            {itr.remove();}
+
+        }
+
     }
 
     private boolean OnWall()
@@ -318,7 +332,8 @@ public class Player implements Living
     }
 
     @Override
-    public void Stop() {
+    public void Stop()
+    {
 
         if(OnGround())
         {
@@ -330,17 +345,20 @@ public class Player implements Living
         //Gdx.app.log(LOG_TAG,"Stopped");
     }
 
-    public boolean OnGround() {
+    public boolean OnGround()
+    {
         return this.numFootContacts > 0 /*| normal.len() ==0 & body.getLinearVelocity().x >TOP_SPEED/2*/;
     }
 
     @Override
-    public void dispose() {
+    public void dispose()
+    {
        this.sprite.getTexture().dispose();
 
     }
 
-    public void wallrunEnd() {
+    public void wallrunEnd()
+    {
         
         if(wallruncount ==0 & !OnGround()) {
             velocity.y = 0.0F;
@@ -356,7 +374,8 @@ public class Player implements Living
 
     }
 
-    public int getShield() {return shield;}
+    public int getShield()
+    {return shield;}
 
     public void addOnGround(int i)
     {
@@ -368,7 +387,8 @@ public class Player implements Living
         wallruncount +=i;
     }
 
-    public void damage (int amount) {
+    public void damage (int amount)
+    {
 
         shield-= amount;
         if(shield <0)

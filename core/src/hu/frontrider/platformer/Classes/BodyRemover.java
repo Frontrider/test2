@@ -1,9 +1,11 @@
-package hu.frontrider.platformer.Helper;
+package hu.frontrider.platformer.Classes;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import hu.frontrider.platformer.Helper.FixtureData;
+import hu.frontrider.platformer.Helper.StaticVariables;
 
 import java.util.Iterator;
 

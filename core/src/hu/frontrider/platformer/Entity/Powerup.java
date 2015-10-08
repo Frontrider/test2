@@ -1,12 +1,11 @@
 package hu.frontrider.platformer.Entity;
 
-import java.security.Key;
-
 /**
  * Created by Frontrider on 2015.10.07..
  */
-public interface Powerup
+public interface Powerup extends GuiHook
 {
-     void act();
+     void act(float delta);
      boolean ask(String string);
+     boolean remove();
 }
