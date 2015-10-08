@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="240">
+ <tileset firstgid="1" name="SciFi" tilewidth="256" tileheight="256" tilecount="32">
+  <image source="scifi.png" width="2048" height="1024"/>
+ </tileset>
+ <objectgroup name="Player">
+  <object id="207" name="PlayerSpawner" x="1280" y="1280" width="256" height="256"/>
+ </objectgroup>
+ <objectgroup name="Ground">
+  <object id="220" x="512" y="1792">
+   <polyline points="0,0 4352,0 4352,1024 5376,1024"/>
+  </object>
+  <object id="221" x="5888" y="2816">
+   <polyline points="0,0 0,-1024 1792,-1024"/>
+  </object>
+  <object id="234" x="7680" y="1792">
+   <polyline points="0,0 256,0 256,-768"/>
+  </object>
+  <object id="235" x="7936" y="1024">
+   <polyline points="0,0 -256,0"/>
+  </object>
+  <object id="236" x="512" y="1792">
+   <polyline points="0,0 0,-1024"/>
+  </object>
+  <object id="237" x="512" y="768">
+   <polyline points="0,0 256,-256 512,-256"/>
+  </object>
+  <object id="238" x="1024" y="1792">
+   <polyline points="0,0 -512,-256"/>
+  </object>
+ </objectgroup>
+ <layer name="GroundTiles" width="500" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2UELgjAYBmApCizsYqcM7P//ShX0IouFW2rxPPCyMdj4bu9hRQEAAAAAAOTQbD0AAJDsW31+iQQAyCe1z6vZOinHPN7sAYB8hj4/Bs7rPs9Arh++e4gEAMjn1ee0IOfx7pBb4N175D4AsC+hPm9XnwIASKHPAeD36XMA+A/+xwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJh0qsQDhQ==
+  </data>
+ </layer>
+ <objectgroup name="SpecialGround"/>
+ <objectgroup name="Enemy">
+  <object id="226" x="5888" y="1536" width="256" height="256"/>
+  <object id="227" x="6400" y="1536" width="256" height="256"/>
+  <object id="228" x="6912" y="1536" width="256" height="256"/>
+ </objectgroup>
+ <objectgroup name="OneWayPlatform">
+  <object id="231" x="4352" y="1280">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="232" x="4864" y="1280">
+   <polyline points="0,0 256,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Cells">
+  <object id="222" x="2048" y="1536" width="256" height="256"/>
+  <object id="223" x="2560" y="1536" width="256" height="256"/>
+  <object id="224" x="3072" y="1536" width="256" height="256"/>
+  <object id="225" x="3840" y="1536" width="256" height="256"/>
+ </objectgroup>
+ <layer name="background" width="500" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAVwOGrwAB
+  </data>
+ </layer>
+ <objectgroup name="Powerups">
+  <object id="233" name="Jumpbox" x="4352" y="1024" width="256" height="256"/>
+ </objectgroup>
+</map>

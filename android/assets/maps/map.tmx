@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="32" tileheight="32" backgroundcolor="#5555ff" nextobjectid="204">
+ <tileset firstgid="1" name="IsoHex" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="192">
+  <image source="isohex.jpg" width="529" height="397"/>
+  <tile id="52">
+   <properties>
+    <property name="arc" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="193" name="Spritesheet" tilewidth="32" tileheight="32" spacing="3" margin="3" tilecount="20">
+  <image source="spritesheet.png" width="178" height="143"/>
+ </tileset>
+ <objectgroup name="Player">
+  <object id="70" name="PlayerSpawner" x="224" y="448" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="Ground">
+  <object id="94" x="1312" y="448">
+   <polyline points="0,0 576,0 576,32"/>
+  </object>
+  <object id="95" x="1888" y="480">
+   <polyline points="0,0 416,0 416,32 480,32 480,64"/>
+  </object>
+  <object id="96" x="2368" y="544">
+   <polyline points="0,0 64,0 64,32 96,32 96,64 192,64 192,96 288,96"/>
+  </object>
+  <object id="97" x="2656" y="640">
+   <polyline points="0,0 0,32 32,32 32,64 96,64 96,96 160,96 160,128 224,128 224,160 256,160 256,192 352,192"/>
+  </object>
+  <object id="98" x="3008" y="832">
+   <polyline points="0,0 0,32 96,32 96,64 160,64 160,96 192,96"/>
+  </object>
+  <object id="101" x="608" y="480">
+   <polyline points="0,0 -608,0"/>
+  </object>
+  <object id="102" x="672" y="480">
+   <polyline points="0,0 640,0 640,-32"/>
+  </object>
+  <object id="108" x="2880" y="608" width="544" height="64"/>
+  <object id="109" x="3200" y="928">
+   <polyline points="0,0 0,32 384,32"/>
+  </object>
+  <object id="110" x="0" y="224" width="64" height="256"/>
+  <object id="124" x="672" y="160" width="128" height="32"/>
+  <object id="125" x="736" y="352" width="128" height="64"/>
+  <object id="126" x="832" y="256" width="128" height="32"/>
+  <object id="128" x="192" y="288" width="64" height="32"/>
+  <object id="133" x="192" y="320" width="352" height="32"/>
+  <object id="145" x="608" y="160" width="64" height="320"/>
+  <object id="146" x="672" y="160" width="128" height="32"/>
+  <object id="147" x="448" y="192" width="160" height="32"/>
+  <object id="201" x="1632" y="160" width="32" height="288"/>
+ </objectgroup>
+ <layer name="GroundTiles" width="500" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt3EEKgzAQQNGAXqEn6Bl6/6uVLgq21YohJmbyHsxSXX4yqCkBAAAAAAAAAAAAS7eNqWWu+CwAiGCr3TX7/U3PARjVnH47eF/MEXoOAG2s9TzXv57XOMPrOQCj2up5TnedzwGgjb2e7820ck0reg7AqM7ct9d+T07PARiVngNA/0r2fEqf+/fa9ByAUZXq+SOd1/O50ABAVKVa+Zp3z0ves/UAQA9a97KXAQD6pesAEIemA0Acued1O38AuKYjvdVzALg2zQWAOHQdAGKwIweAOHQdAOLQdACIRdsBIAbfoQFAHLoOAPFoOgDE4J9xABCXhgNAf/QbAPqj3wDQJ/0GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgip79lAlZ
+  </data>
+ </layer>
+ <objectgroup name="SpecialGround">
+  <object id="105" x="576" y="448" width="32" height="32"/>
+  <object id="149" name="90" x="608" y="224" width="32" height="32"/>
+  <object id="202" name="0" x="1600" y="416" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="Enemy">
+  <object id="115" x="864" y="448" width="32" height="32"/>
+  <object id="116" x="992" y="448" width="32" height="32"/>
+  <object id="117" x="1088" y="448" width="32" height="32"/>
+  <object id="120" x="320" y="448" width="160" height="32"/>
+ </objectgroup>
+ <objectgroup name="OneWayPlatform">
+  <object id="151" x="160" y="224">
+   <polyline points="0,0 96,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Cells">
+  <object id="152" x="320" y="384" width="32" height="32"/>
+  <object id="153" x="384" y="384" width="32" height="32"/>
+  <object id="155" x="448" y="384" width="32" height="32"/>
+  <object id="157" x="480" y="384" width="32" height="32"/>
+  <object id="158" x="416" y="384" width="32" height="32"/>
+  <object id="159" x="352" y="384" width="32" height="32"/>
+  <object id="160" x="320" y="288" width="32" height="32"/>
+  <object id="161" x="352" y="288" width="32" height="32"/>
+  <object id="162" x="384" y="288" width="32" height="32"/>
+  <object id="163" x="416" y="288" width="32" height="32"/>
+  <object id="164" x="320" y="128" width="32" height="32"/>
+  <object id="165" x="352" y="128" width="32" height="32"/>
+  <object id="167" x="384" y="96" width="32" height="32"/>
+  <object id="168" x="384" y="128" width="32" height="32"/>
+  <object id="169" x="416" y="128" width="32" height="32"/>
+  <object id="170" x="384" y="160" width="32" height="32"/>
+  <object id="171" x="320" y="448" width="32" height="32"/>
+  <object id="172" x="352" y="448" width="32" height="32"/>
+  <object id="173" x="384" y="448" width="32" height="32"/>
+  <object id="175" x="416" y="448" width="32" height="32"/>
+  <object id="176" x="448" y="448" width="32" height="32"/>
+  <object id="186" x="1088" y="352" width="32" height="32"/>
+  <object id="187" x="1120" y="320" width="32" height="32"/>
+  <object id="188" x="1152" y="288" width="32" height="32"/>
+  <object id="189" x="1184" y="256" width="32" height="32"/>
+  <object id="190" x="1184" y="320" width="32" height="32"/>
+  <object id="191" x="1216" y="352" width="32" height="32"/>
+  <object id="192" x="1120" y="256" width="32" height="32"/>
+  <object id="193" x="1088" y="224" width="32" height="32"/>
+  <object id="194" x="1216" y="224" width="32" height="32"/>
+  <object id="196" x="1024" y="320"/>
+  <object id="197" x="1024" y="256"/>
+ </objectgroup>
+ <layer name="background" width="500" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1TsKgEAQRMG9qr+LCqIgJp7ICTYw00RWhip4eWddCgAAAJDBEI3R1HoIAAAAJNBFfesRAAAAAAAAAAAAAAAAAAAAAAAAAAAASSwvmqOjtt8CAP7j6c/XaIvO4s8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOALF1yUGIQ=
+  </data>
+ </layer>
+ <objectgroup name="Powerups">
+  <object id="181" name="Jumpbox" x="288" y="288" width="32" height="32"/>
+  <object id="183" name="Jumpbox" x="768" y="320" width="32" height="32"/>
+ </objectgroup>
+</map>
