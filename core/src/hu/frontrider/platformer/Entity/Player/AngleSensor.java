@@ -19,15 +19,27 @@ public class AngleSensor implements Trigger
     }
 
     @Override
-    public void Trigger(Fixture f, WorldManifold manifold)
+    public void Trigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
           point = manifold.getPoints()[0];
     }
 
     @Override
-    public void UnTrigger(Fixture f, WorldManifold manifold)
+    public void UnTrigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
           point.x =0;
           point.y =0;
+    }
+
+    @Override
+    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
     }
 }

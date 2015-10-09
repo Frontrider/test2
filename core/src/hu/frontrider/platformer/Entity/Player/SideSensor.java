@@ -25,24 +25,41 @@ public class SideSensor implements Trigger
 
     }
 
-
     @Override
-    public void Trigger(Fixture f, WorldManifold manifold)
+    public void Trigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
-        if(f.isSensor() ==false)
+        if(f1.isSensor() ==false)
         {
-            player.addWallCount(1);
+            if(RightSide)
+            player.addWallCount(1,"right");
+            else
+            {player.addWallCount(1,"left");}
         }
     }
 
     @Override
-    public void UnTrigger(Fixture f, WorldManifold manifold)
+    public void UnTrigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
-        if(f.isSensor() ==false)
+        if(f1.isSensor() == false)
         {
-            player.addWallCount(-1);
+            if(RightSide)
+            player.addWallCount(-1,"right");
+            else
+            {player.addWallCount(-1,"left");}
             player.wallrunEnd();
         }
+
+    }
+
+    @Override
+    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
 
     }
 }

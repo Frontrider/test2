@@ -22,9 +22,10 @@ public class Player implements Living
 
     private static final float JUMPTIME = 0.265F/1.8f;
     private int SPEED = 800;
-    private static int JUMPFORCE = 1300;
+    private static int JUMPFORCE = 2000;
     private static byte AIR_CONTROL = 4;
     private int TOP_SPEED = 30;
+    public static int TOPSPEED =30;
     private static int TORQUE = 800;
     public Box2DSprite sprite;
     public boolean Forward = false;
@@ -34,16 +35,16 @@ public class Player implements Living
     private Body foot;
     private RevoluteJoint motor;
     private int numFootContacts = 0;
-    public int wallruncount = 0;
+    public int lwallruncount = 0, rwallruncount = 0;
     private float jumptime = 0.0F;
     private boolean FacingRight = true;
     private int shield;
     public Array<Object> triggering;
-    private float Dashtime;
     private Vector2 DefGravity,Gravity,Accel,Vel,anglePointLeft,anglepointRight;
     private Array Powerups;
     private Powerup tmpp;
     boolean jumping;
+    boolean dash = false;
 
     public Player(World world, Vector2 pos) {
 
@@ -102,12 +103,16 @@ public class Player implements Living
         shape.setAsBox(0.2F, 0.3F, new Vector2(-1.0F, 0.0F), 0.0F);
         fixture.shape = shape;
 
-        shape.setAsBox(1.2f, 0.3F, new Vector2(0, 0), 0);
+        shape.setAsBox(.1f, 0.3F, new Vector2(-0.9f, 0), 0);
+        fixture.shape = shape;
+        body.createFixture(fixture).setUserData(new SideSensor(this, false));
+
+        shape.setAsBox(.1f, 0.3F, new Vector2(0.9f, 0), 0);
         fixture.shape = shape;
         body.createFixture(fixture).setUserData(new SideSensor(this, true));
-        ;
 
-    //*
+
+        //*
         EdgeShape edgeshape = new EdgeShape();
 
         edgeshape.set(-0.85f, 0f, -0.85f, -2);
@@ -115,12 +120,17 @@ public class Player implements Living
         fixture.shape=edgeshape;
         fixture.isSensor = true;
 
-        body.createFixture(fixture).setUserData(new AngleSensor(this.anglePointLeft,false));
+        body.createFixture(fixture).setUserData(new AngleSensor(this.anglePointLeft, false));
 
         edgeshape.set(0.85f, 0f, 0.85f, -2);//*/
         fixture.shape=edgeshape;
 
-        body.createFixture(fixture).setUserData(new AngleSensor(this.anglepointRight,true));
+        body.createFixture(fixture).setUserData(new AngleSensor(this.anglepointRight, true));
+
+        circleShape.setRadius(1);
+        fixture.shape = circleShape;
+
+        body.createFixture(fixture).setUserData(new EnemySensor(this));
 
         RevoluteJointDef motorJointDef = new RevoluteJointDef();
         motorJointDef.motorSpeed = (float)SPEED;
@@ -155,7 +165,7 @@ public class Player implements Living
         }
 
         if(Backward) {
-            this.Move((byte) 1,false);
+            this.Move((byte) 1, false);
         }
 
         if(!Forward & !Backward & OnGround()) {
@@ -193,18 +203,7 @@ public class Player implements Living
         else
         shield = 100;
 
-        if(Dashtime>0)
-          {
-             if(FacingRight)
-             {
-                 body.applyForceToCenter(JUMPFORCE,0,true);
-             }
-              else
-             {body.applyForceToCenter(JUMPFORCE,0,true);}
-             Dashtime-=delta;
-          }
-
-        if(body.getLinearVelocity().x > (float)TOP_SPEED) {
+        if(body.getLinearVelocity().x > (float)TOP_SPEED & !dash) {
             body.setLinearVelocity(body.getLinearVelocity().x = ((float) TOP_SPEED), body.getLinearVelocity().y);
         }
 
@@ -224,14 +223,19 @@ public class Player implements Living
             tmpp.act(delta);
             else
             {itr.remove();}
-
         }
+
+
 
     }
 
     private boolean OnWall()
     {
-        return wallruncount >0;
+        return lwallruncount >0 & rwallruncount <=0 |lwallruncount <=0 & rwallruncount >0;
+    }
+    private boolean OnBoothWalls()
+    {
+        return lwallruncount >0 & rwallruncount >0;
     }
 
     public Vector2 getPosition() {
@@ -258,20 +262,31 @@ public class Player implements Living
     @Override
     public void Left()
     {
-      Backward = true;
-        Forward = false;
+        Backward = true;
     }
 
     @Override
     public void Right()
     {
-        Backward = false;
         Forward = true;
     }
 
+    @Override
+    public void StopLeft()
+    {
+        Forward =false;
+    }
+
+    @Override
+    public void StopRight()
+    {
+       Backward=false;
+    }
+
+    @Override
     public void Jump(boolean Override) {
 
-        if((OnGround() | wallruncount >0 |Override) & !jumping)
+        if((OnGround() | OnWall() |Override) & !jumping)
         {
             jumptime = JUMPTIME;
             if(body.getLinearVelocity().y <0)
@@ -282,7 +297,7 @@ public class Player implements Living
             // Gdx.app.log(LOG_TAG,"jump"+OnGround());
         }
         //*
-            if(wallruncount>0)
+            if(OnWall())
          {
              if(FacingRight)
              {body.applyForceToCenter(-JUMPFORCE*3,0,true);}
@@ -292,7 +307,8 @@ public class Player implements Living
          //*/
     }
 
-    public void Finishjump() {
+    @Override
+    public void FinishJump() {
         this.jumptime = -1.0F;
         this.body.setLinearVelocity(this.body.getLinearVelocity().x, this.body.getLinearVelocity().y * 0.7F);
        // Gdx.app.log(LOG_TAG, "finish jump" + OnGround());
@@ -337,12 +353,35 @@ public class Player implements Living
 
         if(OnGround())
         {
-            velocity.x = 0.0F;
             body.setLinearVelocity(body.getLinearVelocity().x/2, body.getLinearVelocity().y);
             foot.setLinearVelocity(foot.getLinearVelocity().x/2, body.getLinearVelocity().y);
         }
         this.motor.enableLimit(true);
         //Gdx.app.log(LOG_TAG,"Stopped");
+    }
+
+    @Override
+    public void Control1(boolean Override)
+    {
+
+    }
+
+    @Override
+    public void Control2(Boolean Override)
+    {
+
+    }
+
+    @Override
+    public void Control1Up(boolean Override)
+    {
+
+    }
+
+    @Override
+    public void Control2Up(Boolean Override)
+    {
+
     }
 
     public boolean OnGround()
@@ -360,9 +399,9 @@ public class Player implements Living
     public void wallrunEnd()
     {
         
-        if(wallruncount ==0 & !OnGround()) {
-            velocity.y = 0.0F;
+        if((!OnWall() & !OnGround()) &!OnBoothWalls()){
             body.setLinearVelocity(this.body.getLinearVelocity().x, body.getLinearVelocity().y / 2.2f);
+
             if(body.getLinearVelocity().y <6  &FacingRight)
                 body.setLinearVelocity(body.getLinearVelocity().x+1f,8);
             else
@@ -382,20 +421,13 @@ public class Player implements Living
         numFootContacts+=i;
     }
 
-    public void addWallCount(int i)
-    {
-        wallruncount +=i;
-    }
-
-    public void damage (int amount)
+    public void addWallCount(int i,String s)
     {
 
-        shield-= amount;
-        if(shield <0)
-        {
-            ((Game)Gdx.app.getApplicationListener()).setScreen(new GameOverScreen());
-        }
-
+        if(s.matches("left"))
+        lwallruncount +=i;
+        if(s.matches("right"))
+        rwallruncount +=i;
     }
 
     public void chargeshield(int value)
@@ -424,5 +456,14 @@ public class Player implements Living
 
     }
 
+    @Override
+    public void Damage(int amount)
+    {
+        shield-= amount;
+        if(shield <0)
+        {
+            ((Game)Gdx.app.getApplicationListener()).setScreen(new GameOverScreen());
+        }
 
+    }
 }

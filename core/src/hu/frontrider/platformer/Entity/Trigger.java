@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
  */
 public interface Trigger
 {
-    void Trigger(Fixture f,WorldManifold manifold);
-    void UnTrigger(Fixture f,WorldManifold manifold);
+    void Trigger(Fixture f1,Fixture f2,WorldManifold manifold);
+    void UnTrigger(Fixture f1,Fixture f2,WorldManifold manifold);
+    void preSolve (Fixture f1,Fixture f2,WorldManifold manifold);
+    void postSolve(Fixture f1,Fixture f2,WorldManifold manifold);
 }

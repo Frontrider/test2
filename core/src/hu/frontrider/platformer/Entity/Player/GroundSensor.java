@@ -19,16 +19,28 @@ public class GroundSensor  implements Trigger
     }
 
     @Override
-    public void Trigger(Fixture f,WorldManifold manifold)
+    public void Trigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
         player.addOnGround(1);
     //Gdx.app.log(LOG_TAG, "triggered");
     }
 
     @Override
-    public void UnTrigger(Fixture f,WorldManifold manifold)
+    public void UnTrigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
         player.addOnGround(-1);
     //Gdx.app.log(LOG_TAG, "un triggered");
+    }
+
+    @Override
+    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
     }
 }

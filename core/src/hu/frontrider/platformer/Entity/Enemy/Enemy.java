@@ -151,6 +151,30 @@ public class Enemy implements Living
     }
 
     @Override
+    public void Control1(boolean Override)
+    {
+
+    }
+
+    @Override
+    public void Control2(Boolean Override)
+    {
+
+    }
+
+    @Override
+    public void Control1Up(boolean Override)
+    {
+
+    }
+
+    @Override
+    public void Control2Up(Boolean Override)
+    {
+
+    }
+
+    @Override
     public void Update(float delta)
     {
         if (body.getPosition().x > patrolPoint.x)
@@ -192,7 +216,6 @@ public class Enemy implements Living
 
 
       //  world.rayCast(raycastcallback, this.body.getPosition(), player.getPosition());
-        Destroy();
     }
 
     public void setPatrolPoint(Vector2 vector2)
@@ -210,26 +233,6 @@ public class Enemy implements Living
         sprite.draw(batch,world);
     }
 
-    public void dealDamage(int damage) {
-        health -= damage;
-        //Gdx.app.log(LOG_TAG, " damaged");
-    }
-
-    private void Destroy() {
-        if(health <0)
-        {
-
-            wheel.setUserData(StaticVariables.DELETE);
-            body.setUserData(StaticVariables.DELETE);
-
-            sprite.getTexture().dispose();
-            Gdx.app.log(LOG_TAG, "Destroyed");
-            destroyed = true;
-        }
-
-
-    }
-
     @Override
     public void dispose()
     {
@@ -244,6 +247,18 @@ public class Enemy implements Living
 
     @Override
     public void Right()
+    {
+
+    }
+
+    @Override
+    public void StopLeft()
+    {
+
+    }
+
+    @Override
+    public void StopRight()
     {
 
     }
@@ -273,6 +288,29 @@ public class Enemy implements Living
     @Override
     public void JumpControl()
     {
+
+    }
+
+    @Override
+    public void FinishJump()
+    {
+
+    }
+
+    @Override
+    public void Damage(int amount)
+    {
+        health -= damage;
+        if(health <0)
+        {
+
+            wheel.setUserData(StaticVariables.DELETE);
+            body.setUserData(StaticVariables.DELETE);
+
+            sprite.getTexture().dispose();
+            Gdx.app.log(LOG_TAG, "Destroyed");
+            destroyed = true;
+        }
 
     }
 }

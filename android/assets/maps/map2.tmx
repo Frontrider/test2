@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="240">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="263">
  <tileset firstgid="1" name="SciFi" tilewidth="256" tileheight="256" tilecount="32">
   <image source="scifi.png" width="2048" height="1024"/>
  </tileset>
+ <layer name="background" width="500" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2zEKgDAQBMDTTp9glf+/0tbC4ooLF3EGFlKlXciSiIhtUs6CAAA5x6LR5wCQty8afQ4AeRXv4m+peK8HAHL0OQB833Ozviac7ecAMF/3Tm4/B4A1+G8GAL1GQfQ5APQaBdHnANBrFESfA0CvUZS3ewEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPinG6M+EEA=
+  </data>
+ </layer>
+ <layer name="GroundTiles" width="500" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2d0KgjAABtBBPxBhNxbdRPb+T5lCgoxNLMlanQMfwoZzdx9zIYRwCN+p+fQGAKAg+hwAypfr87rNpc1+gT3Uie/ocwCYLtXn6zanQa6Z+Xi8U2XWGFuvSexDnwPAdN/wv12fA8A8c/u8ip45u5E5fQ4A83Q9ukqM9/fncd5xn67PAWCeW5vNC9k+3u2SOuMfn1zrnBgDAJYz7PP+v7vzNQCUJXU+1+cAUBZ9DgC/Ib4TBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4H/dAX3/BjI=
+  </data>
+ </layer>
  <objectgroup name="Player">
   <object id="207" name="PlayerSpawner" x="1280" y="1280" width="256" height="256"/>
  </objectgroup>
@@ -13,28 +23,27 @@
   <object id="221" x="5888" y="2816">
    <polyline points="0,0 0,-1024 1792,-1024"/>
   </object>
-  <object id="234" x="7680" y="1792">
-   <polyline points="0,0 256,0 256,-768"/>
-  </object>
-  <object id="235" x="7936" y="1024">
-   <polyline points="0,0 -256,0"/>
-  </object>
-  <object id="236" x="512" y="1792">
-   <polyline points="0,0 0,-1024"/>
-  </object>
-  <object id="237" x="512" y="768">
-   <polyline points="0,0 256,-256 512,-256"/>
-  </object>
   <object id="238" x="1024" y="1792">
    <polyline points="0,0 -512,-256"/>
   </object>
+  <object id="241" x="7680" y="1792">
+   <polyline points="0,0 768,0"/>
+  </object>
+  <object id="246" x="8704" y="768" width="512" height="1024"/>
+  <object id="247" x="9216" y="1792">
+   <polyline points="0,0 768,0 768,-1792"/>
+  </object>
+  <object id="253" x="512" y="1792">
+   <polyline points="0,0 0,-1792"/>
+  </object>
+  <object id="254" x="1536" y="768" width="1280" height="128"/>
+  <object id="256" x="3584" y="768" width="768" height="128"/>
+  <object id="259" x="5888" y="768" width="2048" height="128"/>
  </objectgroup>
- <layer name="GroundTiles" width="500" height="50">
-  <data encoding="base64" compression="zlib">
-   eJzt2UELgjAYBmApCizsYqcM7P//ShX0IouFW2rxPPCyMdj4bu9hRQEAAAAAAOTQbD0AAJDsW31+iQQAyCe1z6vZOinHPN7sAYB8hj4/Bs7rPs9Arh++e4gEAMjn1ee0IOfx7pBb4N175D4AsC+hPm9XnwIASKHPAeD36XMA+A/+xwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJh0qsQDhQ==
-  </data>
- </layer>
- <objectgroup name="SpecialGround"/>
+ <objectgroup name="arc">
+  <object id="240" x="8448" y="1536" width="256" height="256"/>
+  <object id="248" name="270" x="9216" y="1536" width="256" height="256"/>
+ </objectgroup>
  <objectgroup name="Enemy">
   <object id="226" x="5888" y="1536" width="256" height="256"/>
   <object id="227" x="6400" y="1536" width="256" height="256"/>
@@ -47,6 +56,12 @@
   <object id="232" x="4864" y="1280">
    <polyline points="0,0 256,0"/>
   </object>
+  <object id="258" x="5376" y="2048">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="262" x="5376" y="768">
+   <polyline points="0,0 256,0"/>
+  </object>
  </objectgroup>
  <objectgroup name="Cells">
   <object id="222" x="2048" y="1536" width="256" height="256"/>
@@ -54,11 +69,6 @@
   <object id="224" x="3072" y="1536" width="256" height="256"/>
   <object id="225" x="3840" y="1536" width="256" height="256"/>
  </objectgroup>
- <layer name="background" width="500" height="50">
-  <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAVwOGrwAB
-  </data>
- </layer>
  <objectgroup name="Powerups">
   <object id="233" name="Jumpbox" x="4352" y="1024" width="256" height="256"/>
  </objectgroup>

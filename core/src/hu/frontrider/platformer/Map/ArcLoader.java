@@ -24,7 +24,7 @@ public abstract class ArcLoader
       public static void LoadArcs (TiledMap map, World world)
       {
 
-          MapObjects layer = map.getLayers().get("SpecialGround").getObjects();
+          MapObjects layer = map.getLayers().get("arc").getObjects();
 
           BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("maps/bodies/arc"));
           BodyDef bodyDef = new BodyDef();
@@ -36,7 +36,7 @@ public abstract class ArcLoader
 
               RectangleMapObject obj =(RectangleMapObject) itr.next();
 
-                              bodyDef.position.set(obj.getRectangle().x/TILESIZE,obj.getRectangle().y/TILESIZE);
+                              bodyDef.position.set(obj.getRectangle().x/TILESIZE +1f,obj.getRectangle().y/TILESIZE+1f);
               if(obj.getName() != null)
               {
                   bodyDef.angle = MathUtils.degreesToRadians*Float.parseFloat(obj.getName());

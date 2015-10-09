@@ -46,11 +46,11 @@ public class Jumpbox implements PickupObjects
     }
 
     @Override
-    public void Trigger(Fixture f,WorldManifold manifold)
+    public void Trigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
         try
         {
-            ((Player)f.getUserData()).addPowerup(new JumpboxObject((Player)f.getUserData()));
+            ((Player)f1.getUserData()).addPowerup(new JumpboxObject((Player)f1.getUserData()));
             body.setUserData(StaticVariables.DELETE);
             sprite.getTexture().dispose();
         }
@@ -59,7 +59,19 @@ public class Jumpbox implements PickupObjects
     }
 
     @Override
-    public void UnTrigger(Fixture f,WorldManifold manifold)
+    public void UnTrigger(Fixture f1,Fixture f2,WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
     {
 
     }

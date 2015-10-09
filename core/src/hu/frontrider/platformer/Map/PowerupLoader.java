@@ -34,7 +34,7 @@ public abstract class PowerupLoader
             RectangleMapObject tmp = (RectangleMapObject) itr.next();
             if(tmp.getName().equals("Jumpbox"))
             {
-                Vector2 tmpv = new Vector2(tmp.getRectangle().x / StaticVariables.TILE_SIZE, tmp.getRectangle().y / StaticVariables.TILE_SIZE + 1f);
+                Vector2 tmpv = new Vector2(tmp.getRectangle().x / StaticVariables.TILE_SIZE+1, tmp.getRectangle().y / StaticVariables.TILE_SIZE + 1f);
                 Jumpbox cell = new Jumpbox(world, tmpv, index);
                 list.add( cell);
             }

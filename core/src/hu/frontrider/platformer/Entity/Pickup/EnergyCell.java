@@ -49,11 +49,11 @@ public class EnergyCell implements PickupObjects
     }
 
     @Override
-    public void Trigger(Fixture f,WorldManifold manifold)
+    public void Trigger(Fixture f1,Fixture f2,WorldManifold manifold)
     {
         try
         {
-            ((Player)f.getUserData()).chargeshield(energyValue);
+            ((Player)f1.getUserData()).chargeshield(energyValue);
             body.setUserData(StaticVariables.DELETE);
             sprite.getTexture().dispose();
             //Gdx.app.log(LOG_TAG,"triggered");
@@ -63,7 +63,19 @@ public class EnergyCell implements PickupObjects
     }
 
     @Override
-    public void UnTrigger(Fixture f,WorldManifold manifold)
+    public void UnTrigger(Fixture f1,Fixture f2,WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
     {
 
     }

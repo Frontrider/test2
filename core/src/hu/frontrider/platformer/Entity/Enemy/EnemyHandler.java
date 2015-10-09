@@ -73,7 +73,7 @@ public class EnemyHandler
                         {
                             if (tmp.AttackTimer > 3)
                             {
-                                player.damage(tmp.damage);
+                                player.Damage(tmp.damage);
                                 tmp.AttackTimer = 0;
                             }
                             return 0;

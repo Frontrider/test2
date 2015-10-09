@@ -184,7 +184,7 @@ public class GameScreen implements Screen
         UIBatch.begin();
         gui.draw();
         UIBatch.end();
-       // debugRenderer.render(world, camera.combined);
+        debugRenderer.render(world, camera.combined);
     }
 
     @Override

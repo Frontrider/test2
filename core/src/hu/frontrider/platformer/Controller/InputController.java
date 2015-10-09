@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import hu.frontrider.platformer.Entity.Controllable;
 import hu.frontrider.platformer.Entity.Enemy.Enemy;
 import hu.frontrider.platformer.Entity.Player.Player;
 import hu.frontrider.platformer.Screens.LevelMenu;
@@ -16,30 +17,30 @@ import java.util.Iterator;
  */
 public class InputController implements InputProcessor
 {
-    private Player player;
+    private Controllable controllable;
 
-    public InputController(Player player)
+    public InputController(Controllable controllable)
     {
-        this.player = player;
+        this.controllable = controllable;
     }
 
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.A)
         {
-           player.Left();
+           controllable.Left();
             //Gdx.app.log(LOG_TAG,"backward");
             return true;
         }
         if(keycode == Input.Keys.D)
         {
-            player.Right();
+            controllable.Right();
             // Gdx.app.log(LOG_TAG,"forward");
             return true;
         }
         if(keycode == Input.Keys.SPACE)
         {
-            player.JumpControl();
+            controllable.JumpControl();
             return true;
         }
         if(keycode == Input.Keys.ESCAPE)
@@ -49,17 +50,12 @@ public class InputController implements InputProcessor
         }
         if(keycode == Input.Keys.UP)
         {
+            controllable.Control1(false);
         }
 
         if(keycode == Input.Keys.DOWN)
         {
-            if(Gdx.input.isKeyPressed(Input.Keys.W))
-            {
-
-
-            }
-
-
+            controllable.Control2(false);
         }
         return true;
     }
@@ -67,12 +63,12 @@ public class InputController implements InputProcessor
     public boolean keyUp(int keycode) {
         switch(keycode) {
             case Input.Keys.A:
-                player.Backward = false;
+                controllable.StopRight();
                 break;
             case Input.Keys.D:
-                player.Forward = false;
+                controllable.StopLeft();
             case Input.Keys.SPACE:
-                player.Finishjump();
+                controllable.FinishJump();
                 break;
             case  Input.Keys.UP:
                 break;

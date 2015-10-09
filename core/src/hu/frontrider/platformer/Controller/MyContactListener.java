@@ -22,12 +22,12 @@ public class MyContactListener implements ContactListener
              //Gdx.app.log(LOG_TAG, "one is trigger");
                 if (FixtureData.IsTrigger(contact.getFixtureA()))
                 {
-                    ((Trigger)contact.getFixtureA().getUserData()).Trigger(contact.getFixtureB(),contact.getWorldManifold());
+                    ((Trigger)contact.getFixtureA().getUserData()).Trigger(contact.getFixtureB(),contact.getFixtureA(),contact.getWorldManifold());
                 //    Gdx.app.log(LOG_TAG, "A is trigger");
                 }
                 if (FixtureData.IsTrigger(contact.getFixtureB()))
                 {
-                 ((Trigger) contact.getFixtureB().getUserData()).Trigger(contact.getFixtureA(),contact.getWorldManifold());
+                 ((Trigger) contact.getFixtureB().getUserData()).Trigger(contact.getFixtureA(),contact.getFixtureB(),contact.getWorldManifold());
                   //  Gdx.app.log(LOG_TAG, "B is trigger");
                 }
             }
@@ -40,12 +40,12 @@ public class MyContactListener implements ContactListener
                // Gdx.app.log(LOG_TAG, "one is trigger");
                 if (FixtureData.IsTrigger(contact.getFixtureA()))
                 {
-                    ((Trigger)contact.getFixtureA().getUserData()).UnTrigger(contact.getFixtureB(),contact.getWorldManifold());
+                    ((Trigger)contact.getFixtureA().getUserData()).UnTrigger(contact.getFixtureB(),contact.getFixtureA(),contact.getWorldManifold());
                   //  Gdx.app.log(LOG_TAG, "A is trigger");
                 }
                 if (FixtureData.IsTrigger(contact.getFixtureB()))
                 {
-                    ((Trigger) contact.getFixtureB().getUserData()).UnTrigger(contact.getFixtureA(),contact.getWorldManifold());
+                    ((Trigger) contact.getFixtureB().getUserData()).UnTrigger(contact.getFixtureA(),contact.getFixtureB(),contact.getWorldManifold());
                     //Gdx.app.log(LOG_TAG, "B is trigger");
                 }
             }
@@ -54,6 +54,19 @@ public class MyContactListener implements ContactListener
     @Override
     public void preSolve(Contact contact, Manifold oldManifold)
     {
+        if (FixtureData.oneFixureIsTrigger(contact.getFixtureA(), contact.getFixtureB()))    {
+            //Gdx.app.log(LOG_TAG, "one is trigger");
+            if (FixtureData.IsTrigger(contact.getFixtureA()))
+            {
+                ((Trigger)contact.getFixtureA().getUserData()).preSolve(contact.getFixtureB(), contact.getFixtureA(), contact.getWorldManifold());
+                //    Gdx.app.log(LOG_TAG, "A is trigger");
+            }
+            if (FixtureData.IsTrigger(contact.getFixtureB()))
+            {
+                ((Trigger) contact.getFixtureB().getUserData()).preSolve(contact.getFixtureA(), contact.getFixtureB(), contact.getWorldManifold());
+                //  Gdx.app.log(LOG_TAG, "B is trigger");
+            }
+        }
 
 
     }
@@ -61,6 +74,19 @@ public class MyContactListener implements ContactListener
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse)
     {
+        if (FixtureData.oneFixureIsTrigger(contact.getFixtureA(), contact.getFixtureB()))    {
+            //Gdx.app.log(LOG_TAG, "one is trigger");
+            if (FixtureData.IsTrigger(contact.getFixtureA()))
+            {
+                ((Trigger)contact.getFixtureA().getUserData()).postSolve(contact.getFixtureB(),contact.getFixtureA(),contact.getWorldManifold());
+                //    Gdx.app.log(LOG_TAG, "A is trigger");
+            }
+            if (FixtureData.IsTrigger(contact.getFixtureB()))
+            {
+                ((Trigger) contact.getFixtureB().getUserData()).postSolve(contact.getFixtureA(),contact.getFixtureB(),contact.getWorldManifold());
+                //  Gdx.app.log(LOG_TAG, "B is trigger");
+            }
+        }
 
     }
 }
