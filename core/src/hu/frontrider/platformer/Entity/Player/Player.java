@@ -262,6 +262,12 @@ public class Player implements Living
         return false;
     }
 
+    @Override
+    public boolean Remove()
+    {
+        return false;
+    }
+
     private boolean OnWall()
     {
         return lwallruncount >0 & rwallruncount <=0 |lwallruncount <=0 & rwallruncount >0;
