@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Controller.MyContactFilter;
 import hu.frontrider.platformer.Classes.Disposer;
 import hu.frontrider.platformer.Entity.Enemy.EnemyHandler;
-import hu.frontrider.platformer.Entity.PickupObjects;
+import hu.frontrider.platformer.Interfaces.PickupObjects;
 import hu.frontrider.platformer.Entity.Player.Player;
 import hu.frontrider.platformer.Classes.BodyRemover;
 import hu.frontrider.platformer.Classes.Drawer;
@@ -98,29 +98,32 @@ public class GameScreen implements Screen
         switch (Gdx.app.getType()) {
             case Android:
                 // android specific code
-                player = new Player(world, PlayerLoader.getPos(map));
-                camera.zoom = 2f;
+
                 break;
             case Desktop:
-                player = new Player(world,PlayerLoader.getPos(map));
                 // desktop specific code
-                camera.zoom = 2f;
                 break;
             default:
                 // Other platforms specific code
         }
+        player = new Player(world, PlayerLoader.getPos(map));
+        camera.zoom = 2f;
 
         Gdx.input.setInputProcessor(new InputController(player));
         camera.position.set(player.getPosition().x, player.getPosition().y, 0);
 
-        enemyHandler = new EnemyHandler( EnemyLoader.getPos(map, world, TILE_SIZE,player),player);
+        enemyHandler = new EnemyHandler( EnemyLoader.getPos(map, world,player),player);
+
+        ZoneLoader.getPos(map,world);
 
         Array<PickupObjects> Pickups = new Array();
-        Pickups.addAll(EnergyCellLoader.getPos(map, world, TILE_SIZE));
+        Pickups.addAll(EnergyCellLoader.getPos(map, world));
         Pickups.addAll(PowerupLoader.getPos(map, world, TILE_SIZE));
         updater = new Updater();
         updater.add(enemyHandler.getEnemies());
         updater.add(player);
+
+        player.setUpdater(updater);
 
         disposer = new Disposer();
         disposer.add(enemyHandler.getEnemies());
@@ -175,7 +178,7 @@ public class GameScreen implements Screen
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        drawer.Draw(batch,world);
+        drawer.Draw(batch, world);
         batch.end();
 
         shieldbar.setValue(player.getShield());

@@ -1,7 +1,7 @@
 package hu.frontrider.platformer.Classes;
 
 import com.badlogic.gdx.utils.Array;
-import hu.frontrider.platformer.Entity.Updatable;
+import hu.frontrider.platformer.Interfaces.Updatable;
 
 import java.util.Iterator;
 
@@ -11,6 +11,7 @@ import java.util.Iterator;
 public class Updater
 {
     Array<Updatable> livingArray;
+    Updatable tmp;
 
     public Updater()
     {
@@ -33,7 +34,11 @@ public class Updater
 
         while( itr.hasNext())
         {
-            itr.next().Update(delta);
+            tmp = itr.next();
+            if(tmp.Remove())
+            {itr.remove();}
+            else
+            {tmp.Update(delta);}
         }
     }
 }

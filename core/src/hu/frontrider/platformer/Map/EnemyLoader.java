@@ -18,7 +18,7 @@ import java.util.Iterator;
 public abstract class EnemyLoader
 {
     private static final String LOG_TAG = "Enemy loader";
-    public static Array<Enemy> getPos(TiledMap map,World world,int TILESIZE,Player player)
+    public static Array<Enemy> getPos(TiledMap map,World world,Player player)
     {
         int index = 0;
         MapObjects layer = map.getLayers().get("Enemy").getObjects();
@@ -33,7 +33,7 @@ public abstract class EnemyLoader
 
 
              Vector2 tmpv = new Vector2(tmp.getRectangle().x / StaticVariables.TILE_SIZE, tmp.getRectangle().y / StaticVariables.TILE_SIZE+1f);
-            if(tmp.getRectangle().getWidth() < TILESIZE)
+            if(tmp.getRectangle().getWidth() < StaticVariables.TILE_SIZE)
             {
 
                 Enemy enemy = new Enemy(world,tmpv,index,player);

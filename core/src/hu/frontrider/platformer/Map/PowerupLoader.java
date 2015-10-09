@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Entity.Pickup.Powerups.Jumpbox.Jumpbox;
-import hu.frontrider.platformer.Entity.PickupObjects;
+import hu.frontrider.platformer.Interfaces.PickupObjects;
 import hu.frontrider.platformer.Helper.StaticVariables;
 
 import java.util.Iterator;

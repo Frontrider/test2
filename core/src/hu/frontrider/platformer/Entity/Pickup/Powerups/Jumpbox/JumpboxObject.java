@@ -3,7 +3,7 @@ package hu.frontrider.platformer.Entity.Pickup.Powerups.Jumpbox;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import hu.frontrider.platformer.Entity.Powerup;
+import hu.frontrider.platformer.Interfaces.Powerup;
 import hu.frontrider.platformer.Entity.Player.Player;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 

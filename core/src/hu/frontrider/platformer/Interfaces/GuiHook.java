@@ -1,4 +1,4 @@
-package hu.frontrider.platformer.Entity;
+package hu.frontrider.platformer.Interfaces;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;

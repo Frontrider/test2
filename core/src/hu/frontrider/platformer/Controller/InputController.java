@@ -4,13 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
-import hu.frontrider.platformer.Entity.Controllable;
-import hu.frontrider.platformer.Entity.Enemy.Enemy;
-import hu.frontrider.platformer.Entity.Player.Player;
+import hu.frontrider.platformer.Interfaces.Controllable;
 import hu.frontrider.platformer.Screens.LevelMenu;
-
-import java.util.Iterator;
 
 /**
  * Created by Frontrider on 2015.09.10..

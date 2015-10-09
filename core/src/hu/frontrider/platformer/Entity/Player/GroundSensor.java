@@ -2,7 +2,7 @@ package hu.frontrider.platformer.Entity.Player;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
-import hu.frontrider.platformer.Entity.Trigger;
+import hu.frontrider.platformer.Interfaces.Trigger;
 
 /**
  * Created by Frontrider on 2015.10.07..

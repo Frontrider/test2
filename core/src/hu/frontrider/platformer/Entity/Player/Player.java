@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.joints.*;
 import com.badlogic.gdx.utils.Array;
-import hu.frontrider.platformer.Entity.Living;
-import hu.frontrider.platformer.Entity.Powerup;
+import hu.frontrider.platformer.Classes.Updater;
+import hu.frontrider.platformer.Entity.Particle.Explosion;
+import hu.frontrider.platformer.Interfaces.Living;
+import hu.frontrider.platformer.Interfaces.Powerup;
 import hu.frontrider.platformer.Screens.GameOverScreen;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
@@ -45,6 +47,9 @@ public class Player implements Living
     private Powerup tmpp;
     boolean jumping;
     boolean dash = false;
+    private Updater updater;
+    private World world;
+
 
     public Player(World world, Vector2 pos) {
 
@@ -59,6 +64,8 @@ public class Player implements Living
         jumping = false;
         anglepointRight = new Vector2(0,0);
         anglePointLeft = new Vector2(0,0);
+
+        this.world = world;
 
         BodyDef bodydef = new BodyDef();
         bodydef.type = BodyType.DynamicBody;
@@ -150,6 +157,8 @@ public class Player implements Living
         edgeshape.dispose();
     }
 
+    public void setUpdater(Updater updater){this.updater = updater;}
+
     @Override
     public void Update(float delta) {
 
@@ -227,6 +236,12 @@ public class Player implements Living
 
 
 
+    }
+
+    @Override
+    public boolean Remove()
+    {
+        return false;
     }
 
     private boolean OnWall()
@@ -363,7 +378,7 @@ public class Player implements Living
     @Override
     public void Control1(boolean Override)
     {
-
+       updater.add(Explosion.Blow(world, body.getPosition(),1500));
     }
 
     @Override
@@ -402,15 +417,13 @@ public class Player implements Living
         if((!OnWall() & !OnGround()) &!OnBoothWalls()){
             body.setLinearVelocity(this.body.getLinearVelocity().x, body.getLinearVelocity().y / 2.2f);
 
-            if(body.getLinearVelocity().y <6  &FacingRight)
+            if(body.getLinearVelocity().y <6 & body.getLinearVelocity().y > 0 &FacingRight)
                 body.setLinearVelocity(body.getLinearVelocity().x+1f,8);
             else
-              if(body.getLinearVelocity().y < 6 & !FacingRight)
+              if(body.getLinearVelocity().y < 6 & body.getLinearVelocity().y > 0 & !FacingRight)
                   body.setLinearVelocity(body.getLinearVelocity().x-1f,8);
             //Gdx.app.log(LOG_TAG,"wallrun ended");
         }
-
-
     }
 
     public int getShield()

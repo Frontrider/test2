@@ -15,7 +15,7 @@ import hu.frontrider.platformer.Helper.StaticVariables;
 /**
  * Created by Frontrider on 2015.09.27..
  */
-public class OneWayPlatform
+public abstract class OneWayPlatform
 {
 
     private static final String LOG_TAG = "One Way Platforms";
