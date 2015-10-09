@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="263">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="269">
  <tileset firstgid="1" name="SciFi" tilewidth="256" tileheight="256" tilecount="32">
   <image source="scifi.png" width="2048" height="1024"/>
  </tileset>
  <layer name="background" width="500" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2zEKgDAQBMDTTp9glf+/0tbC4ooLF3EGFlKlXciSiIhtUs6CAAA5x6LR5wCQty8afQ4AeRXv4m+peK8HAHL0OQB833Ozviac7ecAMF/3Tm4/B4A1+G8GAL1GQfQ5APQaBdHnANBrFESfA0CvUZS3ewEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPinG6M+EEA=
+   eJzt20EKgCAQQFFrV0do5f1P2T6UBpww4T34VBRuB5RKKWX7qDMhACDmaHR1rq1vej3fvz23AgBi9h8HAMRk7Iu3ytivBwBizHMAWF/vTDvrfiQAIGb2GbnzcwD4B/+bAcBcNaHePB9dFwCIqQmZ5wAwV03IPAeAuWpSX6wLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAmm4ZvRil
   </data>
  </layer>
  <layer name="GroundTiles" width="500" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2d0KgjAABtBBPxBhNxbdRPb+T5lCgoxNLMlanQMfwoZzdx9zIYRwCN+p+fQGAKAg+hwAypfr87rNpc1+gT3Uie/ocwCYLtXn6zanQa6Z+Xi8U2XWGFuvSexDnwPAdN/wv12fA8A8c/u8ip45u5E5fQ4A83Q9ukqM9/fncd5xn67PAWCeW5vNC9k+3u2SOuMfn1zrnBgDAJYz7PP+v7vzNQCUJXU+1+cAUBZ9DgC/Ib4TBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4H/dAX3/BjI=
+   eJzt2ltLwzAYBuCABxCZF5uiF9vq//+VprBCCF/TbNXp8HngpZBTc/eVpCml9JL+puG3NwAAN0Q9B4DbN1fPdzn7nOcr7GEXvEc9B4B+UT2/z3krcszZBv3Hat44ZjOzRmu94bSPug0A6NM6b982+pbG9sydxkz1vG4DAPqsvT/fVM85T42+sp6XbQBAn6X78zo/cZ+ungPAOp85Dxfk8TR3TPRN8HrmWu9BGwDwPQ5F5trLej6duw/BuNb6H1UAgPMs1dwl9b9so+i8/JDWvwsAWC+qyWM9v6syBOMuWRsAuJ76ThwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/6wtKpgqY
   </data>
  </layer>
  <objectgroup name="Player">
@@ -36,9 +36,6 @@
   <object id="253" x="512" y="1792">
    <polyline points="0,0 0,-1792"/>
   </object>
-  <object id="254" x="1536" y="768" width="1280" height="128"/>
-  <object id="256" x="3584" y="768" width="768" height="128"/>
-  <object id="259" x="5888" y="768" width="2048" height="128"/>
  </objectgroup>
  <objectgroup name="arc">
   <object id="240" x="8448" y="1536" width="256" height="256"/>
@@ -59,8 +56,17 @@
   <object id="258" x="5376" y="2048">
    <polyline points="0,0 256,0"/>
   </object>
-  <object id="262" x="5376" y="768">
+  <object id="263" x="5888" y="768">
+   <polyline points="0,0 2048,0"/>
+  </object>
+  <object id="264" x="5376" y="768">
    <polyline points="0,0 256,0"/>
+  </object>
+  <object id="265" x="3584" y="768">
+   <polyline points="0,0 768,0"/>
+  </object>
+  <object id="266" x="1536" y="768">
+   <polyline points="0,0 1280,0"/>
   </object>
  </objectgroup>
  <objectgroup name="Cells">
@@ -71,5 +77,8 @@
  </objectgroup>
  <objectgroup name="Powerups">
   <object id="233" name="Jumpbox" x="4352" y="1024" width="256" height="256"/>
+ </objectgroup>
+ <objectgroup name="Zones">
+  <object id="268" name="Death" x="4864" y="2624" width="1024" height="192"/>
  </objectgroup>
 </map>

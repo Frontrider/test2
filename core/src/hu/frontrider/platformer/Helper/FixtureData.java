@@ -1,7 +1,7 @@
 package hu.frontrider.platformer.Helper;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
-import hu.frontrider.platformer.Entity.Trigger;
+import hu.frontrider.platformer.Interfaces.Trigger;
 
 /**
  * Created by Frontrider on 2015.09.18..

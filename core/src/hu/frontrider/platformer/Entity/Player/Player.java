@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.joints.*;
 import com.badlogic.gdx.utils.Array;
-import hu.frontrider.platformer.Entity.Living;
-import hu.frontrider.platformer.Entity.Powerup;
+import hu.frontrider.platformer.Classes.Updater;
+import hu.frontrider.platformer.Entity.Particle.Explosion;
+import hu.frontrider.platformer.Interfaces.Living;
+import hu.frontrider.platformer.Interfaces.Powerup;
 import hu.frontrider.platformer.Screens.GameOverScreen;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
@@ -21,7 +23,8 @@ public class Player implements Living
     private static final String LOG_TAG = "Player";
 
     private static final float JUMPTIME = 0.265F/1.8f;
-    private int SPEED = 800;
+    private int Speed;
+    private static int SPEED = 30;
     private static int JUMPFORCE = 2000;
     private static byte AIR_CONTROL = 4;
     private int TOP_SPEED = 30;
@@ -45,6 +48,9 @@ public class Player implements Living
     private Powerup tmpp;
     boolean jumping;
     boolean dash = false;
+    private Updater updater;
+    private World world;
+
 
     public Player(World world, Vector2 pos) {
 
@@ -59,6 +65,8 @@ public class Player implements Living
         jumping = false;
         anglepointRight = new Vector2(0,0);
         anglePointLeft = new Vector2(0,0);
+
+        this.world = world;
 
         BodyDef bodydef = new BodyDef();
         bodydef.type = BodyType.DynamicBody;
@@ -133,7 +141,8 @@ public class Player implements Living
         body.createFixture(fixture).setUserData(new EnemySensor(this));
 
         RevoluteJointDef motorJointDef = new RevoluteJointDef();
-        motorJointDef.motorSpeed = (float)SPEED;
+        Speed = 800;
+        motorJointDef.motorSpeed = (float) Speed;
         motorJointDef.enableMotor = true;
         motorJointDef.maxMotorTorque = (float)TORQUE;
         motorJointDef.initialize(body,foot, body.getPosition());
@@ -149,6 +158,8 @@ public class Player implements Living
         circleShape.dispose();
         edgeshape.dispose();
     }
+
+    public void setUpdater(Updater updater){this.updater = updater;}
 
     @Override
     public void Update(float delta) {
@@ -225,8 +236,30 @@ public class Player implements Living
             {itr.remove();}
         }
 
+        if(dash &shield>10)
+        {
+            if(TOPSPEED == TOP_SPEED)
+           TOP_SPEED *=3;
+            if(Speed == SPEED)
+           Speed*=3;
+
+            shield-=1;
+        }
+        else
+        {
+            TOP_SPEED = TOPSPEED;
+            Speed = SPEED;
+
+        }
 
 
+
+    }
+
+    @Override
+    public boolean Remove()
+    {
+        return false;
     }
 
     private boolean OnWall()
@@ -274,13 +307,13 @@ public class Player implements Living
     @Override
     public void StopLeft()
     {
-        Forward =false;
+        Backward =false;
     }
 
     @Override
     public void StopRight()
     {
-       Backward=false;
+       Forward=false;
     }
 
     @Override
@@ -322,12 +355,12 @@ public class Player implements Living
             case 1:
                 if (OnGround())
                 {
-                    this.motor.setMotorSpeed(SPEED);
+                    this.motor.setMotorSpeed(Speed);
                 }
                 else
                 {
-                    body.applyForceToCenter((float)-(SPEED / AIR_CONTROL),0f,true);
-                    foot.applyForceToCenter((float)-(SPEED / AIR_CONTROL),0f,true);
+                    body.applyForceToCenter((float)-(Speed / AIR_CONTROL),0f,true);
+                    foot.applyForceToCenter((float)-(Speed / AIR_CONTROL),0f,true);
                 }
 
                 this.FacingRight = false;
@@ -335,12 +368,12 @@ public class Player implements Living
             case 2:
                 if (OnGround())
                 {
-                    this.motor.setMotorSpeed(-SPEED);
+                    this.motor.setMotorSpeed(-Speed);
                 }
                 else
                 {
-                    body.applyForceToCenter((float)(SPEED / AIR_CONTROL), 0f, true);
-                    foot.applyForceToCenter((float)(SPEED / AIR_CONTROL),0f,true);
+                    body.applyForceToCenter((float)(Speed / AIR_CONTROL), 0f, true);
+                    foot.applyForceToCenter((float)(Speed / AIR_CONTROL),0f,true);
                 }
 
                 this.FacingRight = true;
@@ -363,13 +396,13 @@ public class Player implements Living
     @Override
     public void Control1(boolean Override)
     {
-
+       updater.add(Explosion.Blow(world, body.getPosition(),1500));
     }
 
     @Override
     public void Control2(Boolean Override)
     {
-
+        dash = true;
     }
 
     @Override
@@ -381,7 +414,7 @@ public class Player implements Living
     @Override
     public void Control2Up(Boolean Override)
     {
-
+        dash = false;
     }
 
     public boolean OnGround()
@@ -402,15 +435,13 @@ public class Player implements Living
         if((!OnWall() & !OnGround()) &!OnBoothWalls()){
             body.setLinearVelocity(this.body.getLinearVelocity().x, body.getLinearVelocity().y / 2.2f);
 
-            if(body.getLinearVelocity().y <6  &FacingRight)
+            if(body.getLinearVelocity().y <6 & body.getLinearVelocity().y > 0 &FacingRight)
                 body.setLinearVelocity(body.getLinearVelocity().x+1f,8);
             else
-              if(body.getLinearVelocity().y < 6 & !FacingRight)
+              if(body.getLinearVelocity().y < 6 & body.getLinearVelocity().y > 0 & !FacingRight)
                   body.setLinearVelocity(body.getLinearVelocity().x-1f,8);
             //Gdx.app.log(LOG_TAG,"wallrun ended");
         }
-
-
     }
 
     public int getShield()

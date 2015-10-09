@@ -3,7 +3,7 @@ package hu.frontrider.platformer.Classes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import hu.frontrider.platformer.Entity.Drawable;
+import hu.frontrider.platformer.Interfaces.Drawable;
 
 import java.util.Iterator;
 

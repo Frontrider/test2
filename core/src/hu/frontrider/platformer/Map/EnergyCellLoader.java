@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Entity.Pickup.EnergyCell;
-import hu.frontrider.platformer.Entity.PickupObjects;
+import hu.frontrider.platformer.Interfaces.PickupObjects;
 import hu.frontrider.platformer.Helper.StaticVariables;
 
 import java.util.Iterator;
@@ -20,7 +20,7 @@ public abstract  class EnergyCellLoader
 
     private static final String LOG_TAG = "EnergyCell loader";
 
-    public static Array<PickupObjects> getPos(TiledMap map,World world,int TILESIZE)
+    public static Array<PickupObjects> getPos(TiledMap map,World world)
     {
         int index = 0;
         MapObjects layer = map.getLayers().get("Cells").getObjects();

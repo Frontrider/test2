@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import hu.frontrider.platformer.Entity.PickupObjects;
+import hu.frontrider.platformer.Interfaces.PickupObjects;
 import hu.frontrider.platformer.Entity.Player.Player;
 import hu.frontrider.platformer.Helper.StaticVariables;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;

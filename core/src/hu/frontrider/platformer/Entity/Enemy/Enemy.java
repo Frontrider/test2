@@ -7,8 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import com.badlogic.gdx.utils.Disposable;
-import hu.frontrider.platformer.Entity.Living;
+import hu.frontrider.platformer.Interfaces.Living;
 import hu.frontrider.platformer.Entity.Player.Player;
 import hu.frontrider.platformer.Helper.StaticVariables;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
@@ -86,7 +85,7 @@ public class Enemy implements Living
         CircleShape circleShape = new CircleShape();
         PolygonShape polygonShape = new PolygonShape();
         body = world.createBody(bodydef);
-        circleShape.setRadius(1f);
+        circleShape.setRadius(.9f);
         fixture.shape = circleShape;
         fixture.friction = 1.0F;
         fixture.restitution = 0.0F;
@@ -98,7 +97,7 @@ public class Enemy implements Living
         wheel = world.createBody(bodydef);
         wheel.createFixture(fixture).setUserData(this);
 
-        polygonShape.setAsBox(1,1);
+        polygonShape.setAsBox(.9f,.9f);
         fixture.shape = polygonShape;
         fixture.filter.categoryBits = StaticVariables.CATEGORY_TRIGGER;
         fixture.filter.maskBits = StaticVariables.MASK_TRIGGER;
@@ -116,12 +115,12 @@ public class Enemy implements Living
         bodydef.position.set(pos.add(0, 0f));
 
 
-        polygonShape.setAsBox(1f,0.5f,new Vector2(0f,0.25f),0);
+        polygonShape.setAsBox(.9f,0.45f,new Vector2(0f,0.175f),0);
         fixture.shape =  polygonShape;
 
         body.createFixture(fixture);
         fixture.isSensor = true;
-        polygonShape.setAsBox(1,1);
+        polygonShape.setAsBox(.9f,.9f);
         fixture.shape = polygonShape;
         fixture.isSensor = true;
 
@@ -216,6 +215,15 @@ public class Enemy implements Living
 
 
       //  world.rayCast(raycastcallback, this.body.getPosition(), player.getPosition());
+    }
+
+    @Override
+    public boolean Remove()
+    {
+        if(body == null)
+            return true;
+
+        return false;
     }
 
     public void setPatrolPoint(Vector2 vector2)

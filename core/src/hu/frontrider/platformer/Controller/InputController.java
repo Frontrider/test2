@@ -4,13 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
-import hu.frontrider.platformer.Entity.Controllable;
-import hu.frontrider.platformer.Entity.Enemy.Enemy;
 import hu.frontrider.platformer.Entity.Player.Player;
+import hu.frontrider.platformer.Interfaces.Controllable;
 import hu.frontrider.platformer.Screens.LevelMenu;
-
-import java.util.Iterator;
 
 /**
  * Created by Frontrider on 2015.09.10..
@@ -18,10 +14,12 @@ import java.util.Iterator;
 public class InputController implements InputProcessor
 {
     private Controllable controllable;
+    private Player player;
 
-    public InputController(Controllable controllable)
+    public InputController(Controllable controllable,Player player)
     {
         this.controllable = controllable;
+        this.player = player;
     }
 
     @Override
@@ -30,23 +28,19 @@ public class InputController implements InputProcessor
         {
            controllable.Left();
             //Gdx.app.log(LOG_TAG,"backward");
-            return true;
         }
         if(keycode == Input.Keys.D)
         {
             controllable.Right();
             // Gdx.app.log(LOG_TAG,"forward");
-            return true;
         }
         if(keycode == Input.Keys.SPACE)
         {
             controllable.JumpControl();
-            return true;
         }
         if(keycode == Input.Keys.ESCAPE)
         {
             ((Game) Gdx.app.getApplicationListener()).setScreen(new LevelMenu());
-            return  true;
         }
         if(keycode == Input.Keys.UP)
         {
@@ -57,23 +51,44 @@ public class InputController implements InputProcessor
         {
             controllable.Control2(false);
         }
+        if(keycode == Input.Keys.P)
+        {
+            player.chargeshield(100);
+        }
+
         return true;
     }
     @Override
     public boolean keyUp(int keycode) {
-        switch(keycode) {
-            case Input.Keys.A:
-                controllable.StopRight();
-                break;
-            case Input.Keys.D:
-                controllable.StopLeft();
-            case Input.Keys.SPACE:
-                controllable.FinishJump();
-                break;
-            case  Input.Keys.UP:
-                break;
-            default:
-                break;
+        if(keycode == Input.Keys.A)
+        {
+            controllable.StopLeft();
+            //Gdx.app.log(LOG_TAG,"backward");
+        }
+        if(keycode == Input.Keys.D)
+        {
+            controllable.StopRight();
+            // Gdx.app.log(LOG_TAG,"forward");
+        }
+        if(keycode == Input.Keys.SPACE)
+        {
+            controllable.FinishJump();
+        }
+        if(keycode == Input.Keys.ESCAPE)
+        {
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new LevelMenu());
+        }
+        if(keycode == Input.Keys.UP)
+        {
+            controllable.Control1Up(false);
+        }
+
+        if(keycode == Input.Keys.DOWN)
+        {
+            controllable.Control2Up(false);
+        }
+        if(keycode == Input.Keys.P)
+        {
         }
 
         return true;
