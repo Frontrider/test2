@@ -1,6 +1,8 @@
 package hu.frontrider.platformer.Entity.Player;
 
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import hu.frontrider.platformer.Interfaces.Trigger;
 
@@ -52,14 +54,15 @@ public class SideSensor implements Trigger
     }
 
     @Override
-    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    public void preSolve(Fixture fixtureB, Fixture fixtureA, Manifold oldManifold)
     {
 
     }
 
     @Override
-    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    public void postSolve(Fixture fixtureB, Fixture fixtureA, ContactImpulse impulse)
     {
 
     }
+
 }

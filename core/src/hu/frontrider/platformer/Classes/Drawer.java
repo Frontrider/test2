@@ -38,6 +38,21 @@ public class Drawer
             itr.next().Draw(batch,world);
         }
     }
+    public void Draw(SpriteBatch batch, World world,Array draw)
+    {
+        Iterator itr = draw.iterator();
+
+        while( itr.hasNext())
+        {
+            try
+            {
+                ((Drawable)itr.next()).Draw(batch, world);
+            }
+            catch (Exception e)
+            {}
+        }
+    }
+
 
 
 }

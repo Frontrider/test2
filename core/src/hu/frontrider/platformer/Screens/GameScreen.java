@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Controller.MyContactFilter;
 import hu.frontrider.platformer.Classes.Disposer;
 import hu.frontrider.platformer.Entity.Enemy.EnemyHandler;
+import hu.frontrider.platformer.Interfaces.Drawable;
 import hu.frontrider.platformer.Interfaces.PickupObjects;
 import hu.frontrider.platformer.Entity.Player.Player;
 import hu.frontrider.platformer.Classes.BodyRemover;
@@ -28,6 +29,8 @@ import hu.frontrider.platformer.Controller.InputController;
 import hu.frontrider.platformer.Controller.MyContactListener;
 import hu.frontrider.platformer.Map.*;
 import hu.frontrider.platformer.Classes.Updater;
+
+import javax.xml.transform.Result;
 
 /**
  * Created by Frontrider on 2015.09.10..
@@ -45,7 +48,6 @@ public class GameScreen implements Screen
     private static final float WORLD_UNIT = (float) 1/TILE_SIZE;
 
     private World world;
-    private Box2DDebugRenderer debugRenderer;
     private OrthographicCamera camera;
     private TiledMap map;
     private OrthogonalTiledMapRenderer tileRenderer;
@@ -68,13 +70,19 @@ public class GameScreen implements Screen
     private Skin GuiSkin;
     private ProgressBar shieldbar;
     boolean running = true;
+    Array results;
 
-    public void put(String string)
-    {}
+    private InputController inputController;
+
+    public GameScreen(String mapname)
+    {
+        map = new TmxMapLoader().load("maps/"+mapname+".tmx");
+    }
 
     @Override
     public void show()
     {
+        results = new Array();
         if(running){
         world = new World(new Vector2(0,-15f),true);
         bodyRemover = new BodyRemover();
@@ -86,7 +94,7 @@ public class GameScreen implements Screen
         camera = new OrthographicCamera(Gdx.graphics.getWidth()/25 ,Gdx.graphics.getHeight()/25);
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 25 / 3, Gdx.graphics.getHeight() / 25 / 3);
 
-        map = new TmxMapLoader().load("maps/map2.tmx");
+
 
         GroundLoader.buildShapes(map, TILE_SIZE, world);
         OneWayPlatform.buildShapes(map, TILE_SIZE, world);
@@ -94,7 +102,58 @@ public class GameScreen implements Screen
 
         tileRenderer = new OrthogonalTiledMapRenderer(map,WORLD_UNIT);
         tileRenderer.setView(camera);
+            player = new Player(world, PlayerLoader.getPos(map));
+            camera.zoom = 2f;
 
+
+            camera.position.set(player.getPosition().x, player.getPosition().y, 0);
+
+            enemyHandler = new EnemyHandler( EnemyLoader.getPos(map, world,player),player);
+
+            ZoneLoader.getPos(map, world);
+
+            MapEnd.buildShapes(map,TILE_SIZE,world);
+
+            Array<PickupObjects> Pickups = new Array();
+            Pickups.addAll(EnergyCellLoader.getPos(map, world));
+            Pickups.addAll(PowerupLoader.getPos(map, world, TILE_SIZE));
+            updater = new Updater();
+            updater.add(enemyHandler.getEnemies());
+            updater.add(player);
+
+            player.setUpdater(updater);
+
+            disposer = new Disposer();
+            disposer.add(enemyHandler.getEnemies());
+            disposer.add(player);
+            disposer.add(Pickups);
+
+            drawer = new Drawer();
+            drawer.add(Pickups);
+
+
+            world.setContactFilter(new MyContactFilter());
+            world.setContactListener(new MyContactListener());
+
+            gui = new Stage();
+            table = new Table();
+
+            atlas = new TextureAtlas(Gdx.files.internal("gui/ui.pack"));
+            GuiSkin = new Skin(Gdx.files.internal("gui/ui.json"),atlas);
+
+            shieldbar = new ProgressBar(0f,100f,1f,false,GuiSkin);
+            shieldbar.setRange(0,100);
+
+            table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            table.add(shieldbar);
+            table.top();
+            table.left();
+            gui.addActor(table);
+
+        inputController = new InputController(player, player);
+                    Gdx.input.setInputProcessor(inputController);
+
+        inputController.enableTouch(camera);
         switch (Gdx.app.getType()) {
             case Android:
                 // android specific code
@@ -106,61 +165,17 @@ public class GameScreen implements Screen
             default:
                 // Other platforms specific code
         }
-        player = new Player(world, PlayerLoader.getPos(map));
-        camera.zoom = 2f;
 
-        Gdx.input.setInputProcessor(new InputController(player,player));
-        camera.position.set(player.getPosition().x, player.getPosition().y, 0);
-
-        enemyHandler = new EnemyHandler( EnemyLoader.getPos(map, world,player),player);
-
-        ZoneLoader.getPos(map,world);
-
-        Array<PickupObjects> Pickups = new Array();
-        Pickups.addAll(EnergyCellLoader.getPos(map, world));
-        Pickups.addAll(PowerupLoader.getPos(map, world, TILE_SIZE));
-        updater = new Updater();
-        updater.add(enemyHandler.getEnemies());
-        updater.add(player);
-
-        player.setUpdater(updater);
-
-        disposer = new Disposer();
-        disposer.add(enemyHandler.getEnemies());
-        disposer.add(player);
-        disposer.add(Pickups);
-
-        drawer = new Drawer();
-        drawer.add(player);
-        drawer.add(enemyHandler.getEnemies());
-        drawer.add(Pickups);
-       // if(debugRendering)
-        debugRenderer = new Box2DDebugRenderer();
-
-        world.setContactFilter(new MyContactFilter());
-        world.setContactListener(new MyContactListener());
-
-        gui = new Stage();
-        table = new Table();
-
-        atlas = new TextureAtlas(Gdx.files.internal("gui/ui.pack"));
-        GuiSkin = new Skin(Gdx.files.internal("gui/ui.json"),atlas);
-
-        shieldbar = new ProgressBar(0f,100f,1f,false,GuiSkin);
-        shieldbar.setRange(0,100);
-
-        table.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        table.add(shieldbar);
-        table.top();
-        table.left();
-        gui.addActor(table);
-    }     }
+    }
+      //  updater.start();
+    }
 
     @Override
     public void render(float delta)
     {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glGenBuffer();
 
         world.getBodies(bodies);
         bodyRemover.removebodies(bodies, world);
@@ -178,7 +193,8 @@ public class GameScreen implements Screen
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        drawer.Draw(batch, world);
+        //drawer.Draw(batch, world);
+        drawer.Draw(batch,world,updater.Get());
         batch.end();
 
         shieldbar.setValue(player.getShield());
@@ -219,8 +235,8 @@ public class GameScreen implements Screen
     @Override
     public void dispose()
     {
-        world.dispose();
-        debugRenderer.dispose();
+       // world.dispose();
+        //debugRenderer.dispose();
         map.dispose();
         gui.dispose();
         atlas.dispose();

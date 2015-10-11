@@ -11,25 +11,27 @@ import com.badlogic.gdx.physics.box2d.joints.*;
 import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Classes.Updater;
 import hu.frontrider.platformer.Entity.Particle.Explosion;
+import hu.frontrider.platformer.Interfaces.Damagable;
 import hu.frontrider.platformer.Interfaces.Living;
 import hu.frontrider.platformer.Interfaces.Powerup;
+import hu.frontrider.platformer.Interfaces.Trigger;
 import hu.frontrider.platformer.Screens.GameOverScreen;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
 import java.util.Iterator;
 
-public class Player implements Living
+public class Player implements Living,Trigger
 {
     private static final String LOG_TAG = "Player";
 
     private static final float JUMPTIME = 0.265F/1.8f;
     private int Speed;
     private static int SPEED = 30;
-    private static int JUMPFORCE = 2000;
-    private static byte AIR_CONTROL = 4;
+    private static int JUMPFORCE = 3000;
+    private static float AIR_CONTROL = 0.25f;
     private int TOP_SPEED = 30;
-    public static int TOPSPEED =30;
-    private static int TORQUE = 800;
+    public static int TOPSPEED =40;
+    private static int TORQUE = 500;
     public Box2DSprite sprite;
     public boolean Forward = false;
     public boolean Backward = false;
@@ -50,11 +52,13 @@ public class Player implements Living
     boolean dash = false;
     private Updater updater;
     private World world;
+    float strenght=0;
 
-
+    @Override
+    public String toString()
+    {return LOG_TAG;}
     public Player(World world, Vector2 pos) {
-
-        shield = 50;
+        shield = 100;
         triggering= new Array();
         sprite = new Box2DSprite(new Texture("textures/sprite.png"));
         velocity = new Vector2(0.0F, 0.0F);
@@ -73,6 +77,8 @@ public class Player implements Living
         bodydef.position.set(pos);
         bodydef.gravityScale = 0;
         bodydef.fixedRotation = true;
+        bodydef.bullet = true;
+
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.9F, .9F);
         FixtureDef fixture = new FixtureDef();
@@ -99,8 +105,6 @@ public class Player implements Living
 
         foot = world.createBody(bodydef);
         foot.createFixture(fixture).setUserData(this);
-        shape.setAsBox(0.9f, 0.2f, new Vector2(0, 1), 0);
-
 
         shape.setAsBox(.7F, .25F, new Vector2(0.0F, -1.0F), 0.0F);
         fixture.shape = shape;
@@ -111,22 +115,19 @@ public class Player implements Living
         shape.setAsBox(0.2F, 0.3F, new Vector2(-1.0F, 0.0F), 0.0F);
         fixture.shape = shape;
 
-        shape.setAsBox(.1f, 0.3F, new Vector2(-0.9f, 0), 0);
+        shape.setAsBox(.3f, 0.3F, new Vector2(-0.9f, 0), 0);
         fixture.shape = shape;
         body.createFixture(fixture).setUserData(new SideSensor(this, false));
 
-        shape.setAsBox(.1f, 0.3F, new Vector2(0.9f, 0), 0);
+        shape.setAsBox(.3f, 0.3F, new Vector2(0.9f, 0), 0);
         fixture.shape = shape;
         body.createFixture(fixture).setUserData(new SideSensor(this, true));
 
-
-        //*
         EdgeShape edgeshape = new EdgeShape();
 
         edgeshape.set(-0.85f, 0f, -0.85f, -2);
 
         fixture.shape=edgeshape;
-        fixture.isSensor = true;
 
         body.createFixture(fixture).setUserData(new AngleSensor(this.anglePointLeft, false));
 
@@ -135,10 +136,6 @@ public class Player implements Living
 
         body.createFixture(fixture).setUserData(new AngleSensor(this.anglepointRight, true));
 
-        circleShape.setRadius(1);
-        fixture.shape = circleShape;
-
-        body.createFixture(fixture).setUserData(new EnemySensor(this));
 
         RevoluteJointDef motorJointDef = new RevoluteJointDef();
         Speed = 800;
@@ -172,11 +169,11 @@ public class Player implements Living
         //*/
 
         if(Forward) {
-            this.Move((byte)2,false);
+            this.MoveControl((byte) 2);
         }
 
         if(Backward) {
-            this.Move((byte) 1, false);
+            this.MoveControl((byte) 1);
         }
 
         if(!Forward & !Backward & OnGround()) {
@@ -201,7 +198,8 @@ public class Player implements Living
         }
 
         if(jumptime > 0.0F) {
-            body.applyForceToCenter(0,JUMPFORCE,true);
+
+            body.applyForceToCenter(0,JUMPFORCE*delta,true);
             jumptime -= delta;
         } else {
             velocity.y = 0.0F;
@@ -209,9 +207,7 @@ public class Player implements Living
         }
 
        // Gdx.app.log(LOG_TAG,"Shield: "+shield);
-        if(shield <100)
-        shield+=40*delta;
-        else
+        if(shield >100)
         shield = 100;
 
         if(body.getLinearVelocity().x > (float)TOP_SPEED & !dash) {
@@ -239,21 +235,22 @@ public class Player implements Living
         if(dash &shield>10)
         {
             if(TOPSPEED == TOP_SPEED)
-           TOP_SPEED *=3;
+           TOP_SPEED *=10;
             if(Speed == SPEED)
-           Speed*=3;
+           Speed*=10;
 
-            shield-=1;
+            shield-=2;
         }
+
         else
         {
             TOP_SPEED = TOPSPEED;
             Speed = SPEED;
-
         }
 
-
-
+        Vel = Vel.add(Accel.scl(delta));
+        body.applyForceToCenter(Vel,true);
+        foot.applyForceToCenter(Vel,true);
     }
 
     @Override
@@ -264,12 +261,20 @@ public class Player implements Living
 
     private boolean OnWall()
     {
-        return lwallruncount >0 & rwallruncount <=0 |lwallruncount <=0 & rwallruncount >0;
+        return lwallruncount >0 | rwallruncount >0;
     }
+
     private boolean OnBoothWalls()
     {
         return lwallruncount >0 & rwallruncount >0;
     }
+
+    private boolean RightWall()
+    {return rwallruncount >0;}
+
+
+    private boolean LeftWall()
+    {return lwallruncount >0;}
 
     public Vector2 getPosition() {
         return body.getPosition();
@@ -329,13 +334,13 @@ public class Player implements Living
             jumping = true;
             // Gdx.app.log(LOG_TAG,"jump"+OnGround());
         }
-        //*
+       //*
             if(OnWall())
          {
-             if(FacingRight)
-             {body.applyForceToCenter(-JUMPFORCE*3,0,true);}
+             if(lwallruncount <=0 & rwallruncount >0)
+             {body.applyForceToCenter(-JUMPFORCE/2,0,true);}
              else
-             {{body.applyForceToCenter(JUMPFORCE*3,0,true);}}
+             {{body.applyForceToCenter(JUMPFORCE/2,0,true);}}
          }
          //*/
     }
@@ -350,6 +355,9 @@ public class Player implements Living
     @Override
     public void Move(Byte direction, boolean Override) {
         motor.enableLimit(false);
+
+
+
         switch(direction)
         {
             case 1:
@@ -359,8 +367,11 @@ public class Player implements Living
                 }
                 else
                 {
-                    body.applyForceToCenter((float)-(Speed / AIR_CONTROL),0f,true);
-                    foot.applyForceToCenter((float)-(Speed / AIR_CONTROL),0f,true);
+                    if(Override | !OnWall())
+                    {
+                        body.applyForceToCenter(-(Speed / AIR_CONTROL), 0f, true);
+                        foot.applyForceToCenter(-(Speed / AIR_CONTROL), 0f, true);
+                    }
                 }
 
                 this.FacingRight = false;
@@ -372,12 +383,28 @@ public class Player implements Living
                 }
                 else
                 {
-                    body.applyForceToCenter((float)(Speed / AIR_CONTROL), 0f, true);
-                    foot.applyForceToCenter((float)(Speed / AIR_CONTROL),0f,true);
+                    if(Override | !OnWall())
+                    {
+                        body.applyForceToCenter((Speed / AIR_CONTROL), 0f, true);
+                        foot.applyForceToCenter((Speed / AIR_CONTROL), 0f, true);
+                    }
                 }
 
                 this.FacingRight = true;
         }
+    }
+
+    @Override
+    public void MoveControl(Byte direction)
+    {
+        Iterator<Powerup> itr = Powerups.iterator();
+        while (itr.hasNext())
+            {
+                if (itr.next().ask(direction.toString()))
+                    return;
+            }
+       Move(direction,false);
+
     }
 
     @Override
@@ -390,13 +417,15 @@ public class Player implements Living
             foot.setLinearVelocity(foot.getLinearVelocity().x/2, body.getLinearVelocity().y);
         }
         this.motor.enableLimit(true);
+        Forward = false;
+        Backward = false;
         //Gdx.app.log(LOG_TAG,"Stopped");
     }
 
     @Override
     public void Control1(boolean Override)
     {
-       updater.add(Explosion.Blow(world, body.getPosition(),1500));
+       updater.add(Explosion.Blow(world, body.getPosition(), 1500));
     }
 
     @Override
@@ -495,6 +524,50 @@ public class Player implements Living
         {
             ((Game)Gdx.app.getApplicationListener()).setScreen(new GameOverScreen());
         }
+
+    }
+
+    @Override
+    public void Trigger(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+        strenght = Math.abs(f1.getBody().getLinearVelocity().x+f2.getBody().getLinearVelocity().x)+ Math.abs(f1.getBody().getLinearVelocity().y+f2.getBody().getLinearVelocity().y);
+        //Gdx.app.log(LOG_TAG, String.valueOf(strenght)+" "+TOPSPEED);
+        if(strenght>TOPSPEED/2)
+        {
+            try
+            {
+                if (f1.getUserData().equals(this))
+                {
+                    ((Damagable)f2.getUserData()).Damage(Math.round(strenght*2));
+                    Gdx.app.log(LOG_TAG, String.valueOf(strenght*2)+" "+f2.getUserData().toString());
+                }
+                else
+                {
+                    ((Damagable)f1.getUserData()).Damage(Math.round(strenght*2));
+                    Gdx.app.log(LOG_TAG, String.valueOf(strenght*2)+" "+f1.getUserData().toString());
+                }
+            }catch (Exception e)
+            {
+                Gdx.app.log(LOG_TAG,e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void UnTrigger(Fixture f1, Fixture f2, WorldManifold manifold)
+    {
+
+    }
+
+    @Override
+    public void preSolve(Fixture fixtureB, Fixture fixtureA, Manifold oldManifold)
+    {
+
+    }
+
+    @Override
+    public void postSolve(Fixture fixtureB, Fixture fixtureA, ContactImpulse impulse)
+    {
 
     }
 }

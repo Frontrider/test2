@@ -1,5 +1,6 @@
 package hu.frontrider.platformer.Controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -58,13 +59,13 @@ public class MyContactListener implements ContactListener
             //Gdx.app.log(LOG_TAG, "one is trigger");
             if (FixtureData.IsTrigger(contact.getFixtureA()))
             {
-                ((Trigger)contact.getFixtureA().getUserData()).preSolve(contact.getFixtureB(), contact.getFixtureA(), contact.getWorldManifold());
-                //    Gdx.app.log(LOG_TAG, "A is trigger");
+                ((Trigger)contact.getFixtureA().getUserData()).preSolve(contact.getFixtureB(), contact.getFixtureA(), oldManifold);
+                 //   Gdx.app.log(LOG_TAG, "A is trigger");
             }
             if (FixtureData.IsTrigger(contact.getFixtureB()))
             {
-                ((Trigger) contact.getFixtureB().getUserData()).preSolve(contact.getFixtureA(), contact.getFixtureB(), contact.getWorldManifold());
-                //  Gdx.app.log(LOG_TAG, "B is trigger");
+                ((Trigger) contact.getFixtureB().getUserData()).preSolve(contact.getFixtureA(), contact.getFixtureB(), oldManifold);
+                  //Gdx.app.log(LOG_TAG, "B is trigger");
             }
         }
 
@@ -78,12 +79,12 @@ public class MyContactListener implements ContactListener
             //Gdx.app.log(LOG_TAG, "one is trigger");
             if (FixtureData.IsTrigger(contact.getFixtureA()))
             {
-                ((Trigger)contact.getFixtureA().getUserData()).postSolve(contact.getFixtureB(), contact.getFixtureA(), contact.getWorldManifold());
+                ((Trigger)contact.getFixtureA().getUserData()).postSolve(contact.getFixtureB(), contact.getFixtureA(), impulse);
                 //    Gdx.app.log(LOG_TAG, "A is trigger");
             }
             if (FixtureData.IsTrigger(contact.getFixtureB()))
             {
-                ((Trigger) contact.getFixtureB().getUserData()).postSolve(contact.getFixtureA(), contact.getFixtureB(), contact.getWorldManifold());
+                ((Trigger) contact.getFixtureB().getUserData()).postSolve(contact.getFixtureA(), contact.getFixtureB(),impulse);
                 //  Gdx.app.log(LOG_TAG, "B is trigger");
             }
         }

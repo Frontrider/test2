@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="396">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="500" height="50" tilewidth="256" tileheight="256" backgroundcolor="#5555ff" nextobjectid="357">
  <tileset firstgid="1" name="SciFi" tilewidth="256" tileheight="256" tilecount="32">
   <image source="scifi.png" width="2048" height="1024"/>
  </tileset>
  <layer name="background" width="500" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt3LsOgkAURVE0sVBjZecj8f+/UkwsKDQHhThXXSu5AZqBbg8UdB0AQNft+zkNZtv2cQAAAOBvne/HRdOnAACm2PSz7udwPwIA3+f2fr4cDADwW3ZPzh9dAwBtDL+z+94OAN9p+WAAAAAAAID6NiMHAKjr3Z7PsQ+osgYAtHT7h9zUf7zreWbPAEB1ep7pOQDV6Xmm5wBUp+eZngMwt8vM6+l5pucAVKfnmZ4DUJ2eZ3oOQHV6nuk5ANXpeabnAFSn55meA1Cdnmd6DkB1ep7pOQBjHRvdV88zPQegOj3P9ByAV326C3qe6TkA1el5pucAjLVodF89z/QcgOr0PNNzAKrT80zPAWC6lXl7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP7VFUMtKlc=
+   eJzt3LEKgzAUBdDETaVTN6vg/39lI0jJkE6lPDTnwCXJdte84aUEAJDSs2StMsfWAQAAgG5t55lDWwAAv5hKxpLlPAGA6zn+50MVAOBeHl/urTcAEKOes5u3A8A1DY0AAAAAAAAAAADA3R075Ox4BwAAAAAAAKBHe3QBAAAAAAAAAAAAAAAAAAAA/uoVXQAAAAD4mKILAAAAQMdydAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqLwBXscBvA==
   </data>
  </layer>
  <layer name="GroundTiles" width="500" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt3dFu2jAABdBsXSttaHvY1lVax/D/f+WIWoRl2U3sBNywc6QrUAiGtys7wQxDX18KAQDqfOv9BRKH3l8AADZoaZ//POY+yq+F4+lzAKi3tM/H/g2v2a80HgBQp6Z/fxyzS46N/btf7+vocwBoUNPn49p6up5+mp+vRZ8DQL2aPj9kzo/X20PleKXPAADqLO3ztelzAKjXu8/HNfyHaFx9DgD14n6+n8jYu0+ZYyFK+vpUnl+jzwGgXdznHzpEnwPAcnGft+y1+r3ytfTYNfs83fsml6X74QBAD737fBRfl79kn6f34ufy3va/BYA5Lt3nd8PL/Ht8HPej+ZM5r7bPPx3zOJG/hc8JE9HnAGxR7v61+B632vvb5iS3J435OQC0CZ2S25NGnwNAm0t3VyhEnwPAeq7V5/th3T5vvX4OALfof5ufA8At0ucAsH36HAC2b6t97vo5AJxttc8BgLPWPj/t85bLLjovFNKrz+3fDsAtau3zt3ox7sNQSK/19jlj+/05AFtT211fo+djN6a/Kw/JmCEzxmHou5/MFH0OwNbkuiu3lr7LnFfaa02fA8B15bpr7lp63OeneXoqd2yNPrfeDgBnue4a/zP1cyHxf6Pm5ufjf7GVrp/H7zM/B4D1lPr8YyFpn6fXz+fQ5wCwrlKf/x5e5uOnx9Pz2vn5XLmOvwR9DsAtWjo/D0P9/DxHnwNAu6m9Vd7Kw5C/v/2pcayW973nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECtfx/xMpQ=
+   eJzt3WFL6zAABdD6ROE59IOKgjqW//8rXdBiCIlr085QPQcuG13X9tslWZcOAwAAAPAbPB5zleSp7+UAAA0Ox4TP7I+563kxAMBJD8fssm2xz/cdrgUA+DJnPB3n1vP59HF8DgD0M6fPD4X90/n2MPN4AMA6lvY5ANBf7z6Pc/jXKx8TAP6atJ+vTiT27nNhW0iSf34qr58BANqlfX7RIfocAJZL+/ym4fv3Mz/Lt+lzAFiud59Hh4bzAgBfzt3nl8PH+Du+xvVo3gr76XMAWKZ0/1p6j9vc+9umpLQmDQDQJnRKaU0aAKDNudeGCZXocwBYz0/1+X7Q5wBwLsbnALB9+hwAtk+fA8D26XMA2D59DgDb19rn4zpvpeyS/UIl+hwA1tPa5/GZ5VPWfguV6HMAWM/cPr9N3scOzv9XHrJjhonn1ecA0K7U56W59F1hv9jBoRB9DgA/q9TnU+fS0z4fx+m50rbSefU5ALQr9Xl8Zur/StJno5bG5/FZbN/9fl47rz4HgHa1Pv9XSd7n+e/nrefV5wDQrtbnL8PHeHx8Hd/PHZ9Ppc8BoN3S8XkY2sbnOX0OAO1q971NyfVQvr/9eeFxxwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAX/MOwLEf8A==
   </data>
  </layer>
  <objectgroup name="Player">
@@ -32,47 +32,21 @@
   <object id="298" x="256" y="8192">
    <polyline points="0,0 0,-4096"/>
   </object>
-  <object id="299" x="7680" y="4096" width="256" height="2304"/>
-  <object id="300" x="8704" y="3072" width="512" height="5120"/>
+  <object id="299" x="7680" y="4096" width="256" height="3584"/>
+  <object id="300" x="8704" y="3072" width="256" height="5120"/>
   <object id="302" x="256" y="3584" width="7680" height="512"/>
   <object id="309" x="6144" y="4096">
    <polyline points="0,0 0,3328 256,3328 256,2304 1536,2304"/>
   </object>
-  <object id="310" x="6400" y="7168" width="512" height="256"/>
-  <object id="316" x="256" y="256" width="256" height="3328"/>
+  <object id="310" x="6400" y="7168" width="768" height="256"/>
+  <object id="316" x="256" y="1280" width="256" height="2304"/>
   <object id="317" x="1024" y="2304" width="7424" height="256"/>
   <object id="320" x="6656" y="3328" width="256" height="256"/>
   <object id="344" x="3072" y="1280" width="512" height="1024"/>
   <object id="349" x="4352" y="512" width="1280" height="512"/>
   <object id="350" x="4352" y="1024" width="512" height="512"/>
   <object id="351" x="4352" y="1536" width="1280" height="256"/>
-  <object id="357" x="8960" y="8192">
-   <polyline points="0,0 1024,0"/>
-  </object>
-  <object id="358" x="8448" y="2048" width="768" height="1024"/>
-  <object id="359" x="3776" y="8576"/>
-  <object id="369" x="9472" y="1024" width="256" height="6656"/>
-  <object id="370" x="8192" y="256">
-   <polyline points="0,0 1280,0 1280,768"/>
-  </object>
-  <object id="373" x="9984" y="8192">
-   <polyline points="0,0 7168,0"/>
-  </object>
-  <object id="374" x="17152" y="8192">
-   <polyline points="0,0 7424,0"/>
-  </object>
-  <object id="376" x="24576" y="8192">
-   <polyline points="0,0 10240,0"/>
-  </object>
-  <object id="377" x="34816" y="8192">
-   <polyline points="0,0 5376,0"/>
-  </object>
-  <object id="378" x="40192" y="8192">
-   <polyline points="0,0 2304,0 2304,-1280 2048,-1536"/>
-  </object>
-  <object id="380" x="15360" y="5888" width="2560" height="2304"/>
-  <object id="381" x="15360" y="2816" width="2560" height="1536"/>
-  <object id="395" x="7424" y="6400" width="512" height="1280"/>
+  <object id="356" x="8448" y="2048" width="512" height="1024"/>
  </objectgroup>
  <objectgroup name="arc">
   <object id="284" x="3584" y="7936" width="256" height="256"/>
@@ -95,21 +69,6 @@
   <object id="346" x="6400" y="1536" width="256" height="128"/>
   <object id="347" x="7168" y="1536" width="256" height="128"/>
   <object id="348" x="8192" y="1536" width="256" height="128"/>
-  <object id="382" x="11776" y="6912">
-   <polyline points="0,0 2560,0"/>
-  </object>
-  <object id="383" x="11776" y="6144">
-   <polyline points="0,0 2560,0"/>
-  </object>
-  <object id="384" x="11776" y="5376">
-   <polyline points="0,0 2560,0"/>
-  </object>
-  <object id="385" x="11776" y="4352">
-   <polyline points="0,0 2560,0"/>
-  </object>
-  <object id="386" x="11776" y="3328">
-   <polyline points="0,0 2560,0"/>
-  </object>
  </objectgroup>
  <objectgroup name="Cells">
   <object id="303" x="8192" y="6656" width="256" height="256"/>
@@ -137,19 +96,13 @@
   <object id="341" x="2560" y="3072" width="256" height="256"/>
   <object id="342" x="2048" y="3072" width="256" height="256"/>
   <object id="343" x="1536" y="3072" width="256" height="256"/>
-  <object id="387" x="3840" y="5632" width="256" height="256"/>
-  <object id="388" x="4096" y="5632" width="256" height="256"/>
-  <object id="389" x="4352" y="5632" width="256" height="256"/>
-  <object id="390" x="4608" y="5632" width="256" height="256"/>
-  <object id="391" x="4864" y="5632" width="256" height="256"/>
-  <object id="392" x="5120" y="5632" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="Powerups">
-  <object id="311" name="Magnetbox" x="6656" y="6912" width="256" height="256"/>
+  <object id="311" name="Jumpbox" x="6656" y="6912" width="256" height="256"/>
   <object id="353" name="Jumpbox" x="5120" y="1280" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="Zones"/>
  <objectgroup name="MapEnd">
-  <object id="354" name="map3" x="42304" y="6848" width="192" height="1344"/>
+  <object id="354" name="map2" x="8768" y="640" width="192" height="1408"/>
  </objectgroup>
 </map>

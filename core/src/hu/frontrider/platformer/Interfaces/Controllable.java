@@ -10,6 +10,7 @@ public interface Controllable
     void StopLeft();
     void StopRight();
     void Move(Byte direction,boolean Override);
+    void MoveControl(Byte direction);
     void Jump(boolean Override);
     void JumpControl();
     void FinishJump();

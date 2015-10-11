@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import hu.frontrider.platformer.Entity.Pickup.Powerups.Jumpbox.Jumpbox;
+import hu.frontrider.platformer.Entity.Pickup.Powerups.magnetbox.MagnetBox;
 import hu.frontrider.platformer.Interfaces.PickupObjects;
 import hu.frontrider.platformer.Helper.StaticVariables;
 
@@ -36,6 +37,12 @@ public abstract class PowerupLoader
             {
                 Vector2 tmpv = new Vector2(tmp.getRectangle().x / StaticVariables.TILE_SIZE+1, tmp.getRectangle().y / StaticVariables.TILE_SIZE + 1f);
                 Jumpbox cell = new Jumpbox(world, tmpv, index);
+                list.add( cell);
+            }
+            if(tmp.getName().equals("Magnetbox"))
+            {
+                Vector2 tmpv = new Vector2(tmp.getRectangle().x / StaticVariables.TILE_SIZE+1, tmp.getRectangle().y / StaticVariables.TILE_SIZE + 1f);
+                MagnetBox cell = new MagnetBox(world, tmpv, index);
                 list.add( cell);
             }
             index++;

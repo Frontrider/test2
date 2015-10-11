@@ -12,7 +12,7 @@ public class TiledPlatformer extends Game
 	public void create () {
         Gdx.app.log(Name, "inicializálás kezdete");
 
-        setScreen(new GameScreen());
+        setScreen(new GameScreen("map2"));
         Gdx.app.log(Name,"inicializálás vége");
 	}
 

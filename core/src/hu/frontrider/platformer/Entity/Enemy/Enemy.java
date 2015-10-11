@@ -37,7 +37,6 @@ public class Enemy implements Living
     public float AttackTimer;
 
     Box2DSprite sprite;
-    private Player player;
     public boolean destroyed = false;
 
 
@@ -46,19 +45,18 @@ public class Enemy implements Living
 
         this.patrolPoint = pos;
         createbody(world, pos);
-        createdata(pos,id,player);
+        createdata(pos,id);
     }
 
     public Enemy(World world,Vector2 pos,Vector2 patrolPoint,int id,Player player) {
 
         this.patrolPoint = patrolPoint;
         createbody(world, pos);
-        createdata(pos,id,player);
+        createdata(pos,id);
     }
 
-   private void createdata(Vector2 pos, int id,Player player)
+   private void createdata(Vector2 pos, int id)
     {
-        this.player = player;
       //  raycastcallback = new raycastcallback();
         velocity = new Vector2(0,0);
         health = 20;
@@ -71,12 +69,17 @@ public class Enemy implements Living
         collosion = new Vector2();
     }
 
+    @Override
+    public String toString()
+    {
+        return LOG_TAG;
+    }
+
     private void createbody(World world,Vector2 pos) {
         sprite = new Box2DSprite(new Texture("textures/sprite.png"));
         this.world = world;
         BodyDef bodydef = new BodyDef();
         bodydef.position.set(pos);
-        //bodydef.gravityScale =0;
         bodydef.type = BodyDef.BodyType.DynamicBody;
         bodydef.allowSleep = true;
 
@@ -90,25 +93,18 @@ public class Enemy implements Living
         fixture.friction = 1.0F;
         fixture.restitution = 0.0F;
         fixture.density = 5.0F;
-        fixture.filter.categoryBits = StaticVariables.CATEGORY_MONSTER;
-        fixture.filter.maskBits = StaticVariables.MASK_MONSTER;
         fixture.isSensor = false;
-        fixture.filter.groupIndex = StaticVariables.PLAYER_GROUP;
         wheel = world.createBody(bodydef);
         wheel.createFixture(fixture).setUserData(this);
 
         polygonShape.setAsBox(.9f,.9f);
         fixture.shape = polygonShape;
-        fixture.filter.categoryBits = StaticVariables.CATEGORY_TRIGGER;
-        fixture.filter.maskBits = StaticVariables.MASK_TRIGGER;
         fixture.isSensor = true;
         fixture.density =0;
         body.createFixture(fixture).setUserData(sprite);
 
         fixture.filter.groupIndex = 0;
         fixture.isSensor = false;
-        fixture.filter.categoryBits = StaticVariables.CATEGORY_MONSTER;
-        fixture.filter.maskBits = StaticVariables.MASK_MONSTER;
         fixture.filter.groupIndex = 0;
 
         bodydef.fixedRotation = true;
@@ -288,6 +284,12 @@ public class Enemy implements Living
     }
 
     @Override
+    public void MoveControl(Byte direction)
+    {
+
+    }
+
+    @Override
     public void Jump(boolean Override)
     {
 
@@ -309,12 +311,11 @@ public class Enemy implements Living
     public void Damage(int amount)
     {
         health -= damage;
+        Gdx.app.log(LOG_TAG, "Health: "+health);
         if(health <0)
         {
-
             wheel.setUserData(StaticVariables.DELETE);
             body.setUserData(StaticVariables.DELETE);
-
             sprite.getTexture().dispose();
             Gdx.app.log(LOG_TAG, "Destroyed");
             destroyed = true;

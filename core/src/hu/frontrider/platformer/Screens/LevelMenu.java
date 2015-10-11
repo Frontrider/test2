@@ -57,11 +57,7 @@ public class LevelMenu implements Screen
                                    @Override
                                    public void clicked(InputEvent event,float x,float y)
                                    {
-
-                                       GameScreen levelscreen = new GameScreen();
-                                       levelscreen.put(list.getSelected().toString());
-
-                                       ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(levelscreen);
+                                       ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen("map2"));
                                        Gdx.app.log("level select","Start");
                                    }
                                }

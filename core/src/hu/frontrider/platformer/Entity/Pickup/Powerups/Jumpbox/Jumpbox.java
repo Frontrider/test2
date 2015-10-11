@@ -65,13 +65,13 @@ public class Jumpbox implements PickupObjects
     }
 
     @Override
-    public void preSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    public void preSolve(Fixture fixtureB, Fixture fixtureA, Manifold oldManifold)
     {
 
     }
 
     @Override
-    public void postSolve(Fixture f1, Fixture f2, WorldManifold manifold)
+    public void postSolve(Fixture fixtureB, Fixture fixtureA, ContactImpulse impulse)
     {
 
     }
